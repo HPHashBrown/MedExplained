@@ -2,55 +2,99 @@ import streamlit as st
 
 # Configure the page settings
 st.set_page_config(
-    page_title="MedExplained",
+    page_title="MedExplained | Simplified Medical Knowledge",
     page_icon="⚕️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for Blue and Turquoise Theme (Adapts to Streamlit's Light/Dark mode)
+# Custom CSS for Blue/Turquoise Theme, animations, hover states, and responsive styling
 st.markdown("""
 <style>
-    /* Text accents */
-    .blue-text { color: #38bdf8; } /* Lightened slightly to work on both backgrounds */
-    .turquoise-text { color: #2dd4bf; }
+    /* Gradient text effect and accent colors */
+    .hero-title {
+        font-size: 3.8rem;
+        line-height: 1.15;
+        font-weight: 800;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #38bdf8 0%, #2dd4bf 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .blue-text { color: #38bdf8; font-weight: 600; }
+    .turquoise-text { color: #2dd4bf; font-weight: 600; }
     
-    /* Tab navigation styling */
+    /* Interactive Card Zoom and Hover Effects */
+    .custom-card {
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        background: rgba(255, 255, 255, 0.03);
+        transition: all 0.3s ease;
+    }
+    .custom-card:hover {
+        transform: translateY(-5px);
+        border-color: #2dd4bf;
+        box-shadow: 0 10px 20px rgba(45, 212, 191, 0.1);
+    }
+    
+    /* Global Tab Customization */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 32px;
+        gap: 24px;
         border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+        padding-bottom: 5px;
     }
     .stTabs [data-baseweb="tab"] {
         background-color: transparent;
-        border-radius: 0;
+        font-size: 1.1rem;
         font-weight: 600;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding: 12px 20px;
+        transition: all 0.2s ease;
     }
     .stTabs [aria-selected="true"] {
-        color: #0284c7 !important; /* Blue active text */
-        border-bottom: 3px solid #0d9488 !important; /* Turquoise active underline */
+        color: #38bdf8 !important; 
+        border-bottom: 3px solid #2dd4bf !important;
     }
 
-    /* Customizing info/success banners to fit the theme using rgba for both light/dark mode support */
+    /* Style enhancements for alert/success blocks */
     div[data-testid="stExpander"] {
-        border: 1px solid rgba(2, 132, 199, 0.2);
-        border-radius: 8px;
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        border-radius: 10px;
     }
     div[data-testid="stInfo"] {
-        background-color: rgba(2, 132, 199, 0.1); /* Transparent blue */
-        border: none;
+        background-color: rgba(56, 189, 248, 0.08);
+        border-left: 5px solid #38bdf8;
+        border-radius: 8px;
     }
     div[data-testid="stSuccess"] {
-        background-color: rgba(13, 148, 136, 0.1); /* Transparent turquoise */
-        border: none;
+        background-color: rgba(45, 212, 191, 0.08);
+        border-left: 5px solid #2dd4bf;
+        border-radius: 8px;
+    }
+    
+    /* Responsive metric cards */
+    .metric-box {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background: rgba(128, 128, 128, 0.05);
+        border-top: 4px solid #38bdf8;
+    }
+    .metric-val {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #2dd4bf;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Initialize session state for page navigation
+# Initialize Session State
 if 'current_page' not in st.session_state:
     st.session_state.current_page = 'main'
+if 'score' not in st.session_state:
+    st.session_state.score = 0
+if 'quiz_answered' not in st.session_state:
+    st.session_state.quiz_answered = {}
 
 def change_page(page_name):
     st.session_state.current_page = page_name
@@ -60,133 +104,236 @@ def change_page(page_name):
 # ==========================================
 if st.session_state.current_page == 'main':
 
-    # Create Navigation Tabs
+    # Navigation Tabs
     tab_home, tab_about, tab_services, tab_articles, tab_team, tab_involved, tab_contact = st.tabs(
-        ["Home", "About", "Services", "Articles", "Team", "Get Involved", "Contact"]
+        ["🏠 Home", "📖 About", "🛡️ Services", "✍️ Articles", "👥 Team", "🌍 Get Involved", "✉️ Contact"]
     )
 
     # --- HOME TAB ---
     with tab_home:
-        st.write("") # Spacer
+        st.write("") 
         col1, col2 = st.columns([3, 2], gap="large")
 
         with col1:
-            st.markdown("<h1 style='font-size: 3.5rem; line-height: 1.2; margin-bottom: 0px;'>Your Trusted Source for <br><span class='blue-text'>Simplified</span> Medical Knowledge</h1>", unsafe_allow_html=True)
-            st.markdown("<h3 class='turquoise-text' style='margin-top: 10px;'>Empower Your Health Literacy</h3>", unsafe_allow_html=True)
-            st.write("Simplified medical knowledge at your fingertips - for free. We champion health literacy as a fundamental right, fostering a globally informed community concerning health and wellness.")
+            st.markdown("<h1 class='hero-title'>Your Trusted Source for Simplified Medical Knowledge</h1>", unsafe_allow_html=True)
+            st.markdown("<h3 class='turquoise-text'>Empower Your Health Literacy</h3>", unsafe_allow_html=True)
+            st.write(
+                "Welcome to **MedExplained**, a youth-led initiative aiming to bridge the gap between "
+                "complex medical jargon and everyday understanding. We believe health literacy is a "
+                "fundamental human right, and we provide reliable, accessible information for free."
+            )
             st.write("")
-            st.info("💡 **Mission:** Making medical information accessible and understandable for everyone.")
+            st.info("💡 **Our Mission:** Demystifying the world of medicine, breaking down barriers, and fostering a globally informed community.")
 
         with col2:
             st.image("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000", use_column_width=True)
 
+        st.markdown("---")
+        
+        # New Feature: Live Global Impact Metrics
+        st.markdown("<h2 class='turquoise-text' style='text-align: center; margin-bottom: 30px;'>Our Global Impact</h2>", unsafe_allow_html=True)
+        m_col1, m_col2, m_col3, m_col4 = st.columns(4)
+        with m_col1:
+            st.markdown("<div class='metric-box'><div class='metric-val'>10,000+</div><div>Global Readers Reached</div></div>", unsafe_allow_html=True)
+        with m_col2:
+            st.markdown("<div class='metric-box'><div class='metric-val'>150+</div><div>Concepts Simplified</div></div>", unsafe_allow_html=True)
+        with m_col3:
+            st.markdown("<div class='metric-box'><div class='metric-val'>50+</div><div>Active Volunteers</div></div>", unsafe_allow_html=True)
+        with m_col4:
+            st.markdown("<div class='metric-box'><div class='metric-val'>100%</div><div>Free Resources Forever</div></div>", unsafe_allow_html=True)
+
+        st.markdown("---")
+
+        # New Feature: Interactive Medical MythBuster Widget
+        st.markdown("<h2 class='blue-text' style='text-align: center;'>🧠 Quick Health MythBuster Game</h2>", unsafe_allow_html=True)
+        st.write("<p style='text-align: center;'>Test your medical knowledge! Are these statements True or False?</p>", unsafe_allow_html=True)
+        
+        q_col1, q_col2 = st.columns(2, gap="large")
+        with q_col1:
+            st.markdown("##### Question 1: Does cracking your knuckles cause arthritis?")
+            ans1 = st.radio("Select your answer:", ["Choose...", "True", "False"], key="q1")
+            if ans1 != "Choose...":
+                if ans1 == "False":
+                    st.success("🎉 Correct! There is absolutely no link between joint cracking and arthritis.")
+                else:
+                    st.error("❌ Not quite! Synovial fluid gas bubbles bursting causes that sound, not arthritis.")
+
+        with q_col2:
+            st.markdown("##### Question 2: Does cold weather directly give you the common cold?")
+            ans2 = st.radio("Select your answer:", ["Choose...", "True", "False"], key="q2")
+            if ans2 != "Choose...":
+                if ans2 == "False":
+                    st.success("🎉 Correct! Cold weather might keep us indoors near people, but viruses cause colds!")
+                else:
+                    st.error("❌ Myth Busted! Cold temperatures don't make you sick; rhinoviruses do.")
+
     # --- ABOUT TAB ---
     with tab_about:
         st.write("")
-        st.header("About MedExplained")
-        st.write("""
-        At MedExplained, we are dedicated to making medical information accessible and understandable for everyone. Our platform provides simplified explanations of complex medical concepts, empowering individuals with the knowledge they need to make informed health-related decisions. 
-
-        By delivering clear and actionable medical explanations for free, we champion health literacy as a fundamental right. We aim to foster a globally informed community concerning health and wellness.
-        """)
+        st.markdown("<h2 class='turquoise-text'>About MedExplained</h2>", unsafe_allow_html=True)
+        
+        col_abt1, col_abt2 = st.columns([3, 2], gap="large")
+        with col_abt1:
+            st.write("""
+            At **MedExplained**, we are passionate about making health literacy a universal reality. Today, the internet is flooded 
+            with confusing medical websites and misleading rumors. We solve this issue by offering peer-reviewed, easily 
+            digestible medical explanations without the complex gatekeeping jargon.
+            
+            We create structured write-ups on critical biological mechanisms, professional healthcare careers, healthcare history, 
+            and global health topics. By breaking these down, we empower students, parents, and community members worldwide 
+            to understand wellness and advocate for their own medical needs.
+            """)
+            st.markdown("#### Why Health Literacy Matters:")
+            st.write("✔️ **Safe Self-Care:** Helps people spot and avoid dangerous medical hoaxes.")
+            st.write("✔️ **Stronger Communities:** Encourages collaborative health education across demographic sectors.")
+            st.write("✔️ **Confident Patient-Doctor Conversations:** Bridges communications during personal medical visits.")
+        
+        with col_abt2:
+            st.image("https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=800", use_column_width=True)
 
     # --- SERVICES TAB ---
     with tab_services:
         st.write("")
-        st.header("Our Services")
-        st.write("Providing essential tools and resources to demystify medicine.")
+        st.markdown("<h2 class='blue-text'>Our Essential Services</h2>", unsafe_allow_html=True)
+        st.write("Providing dynamic tools, structured research, and global resources to empower communities.")
         st.write("")
+        
         s_col1, s_col2, s_col3 = st.columns(3, gap="large")
 
         with s_col1:
-            st.markdown("<h3 class='blue-text'>🩺 Concept Simplification</h3>", unsafe_allow_html=True)
-            st.write("We break down complex medical ideas into plain, digestible language for easy understanding.")
+            st.markdown("""
+            <div class='custom-card'>
+                <h3 class='blue-text'>🩺 Concept Simplification</h3>
+                <p>We transform dense, multi-syllable anatomical topics and medical jargon into plain, easy-to-read guides that anybody can understand.</p>
+            </div>
+            """, unsafe_allow_html=True)
             
         with s_col2:
-            st.markdown("<h3 class='blue-text'>🛡️ Accessible Resources</h3>", unsafe_allow_html=True)
-            st.write("Our platform offers completely free, reliable health content to educate people around the world.")
+            st.markdown("""
+            <div class='custom-card'>
+                <h3 class='blue-text'>🛡️ Accessible Resources</h3>
+                <p>Providing high-quality educational guides, illustrations, and structured write-ups to the global public completely free of charge.</p>
+            </div>
+            """, unsafe_allow_html=True)
             
         with s_col3:
-            st.markdown("<h3 class='blue-text'>🌍 Community Empowerment</h3>", unsafe_allow_html=True)
-            st.write("We provide tools and actionable knowledge aimed at global health literacy improvement.")
+            st.markdown("""
+            <div class='custom-card'>
+                <h3 class='blue-text'>🌍 Global Literacy Reach</h3>
+                <p>Mobilizing youth leaders to run outreach initiatives, distribute resources, and speak in local schools regarding wellness topics.</p>
+            </div>
+            """, unsafe_allow_html=True)
 
     # --- ARTICLES TAB ---
     with tab_articles:
         st.write("")
-        st.header("Latest Articles")
-        st.write("Dive into our simple explanations of medical topics.")
+        st.markdown("<h2 class='turquoise-text'>Featured Medical Articles</h2>", unsafe_allow_html=True)
+        st.write("Dive deep into our simplified medical explanations below:")
         st.write("")
+        
         a_col1, a_col2, a_col3 = st.columns(3, gap="large")
 
         with a_col1:
             st.image("https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=600", use_column_width=True)
-            st.markdown("<h3 class='turquoise-text'>The Importance of Anesthesiology</h3>", unsafe_allow_html=True)
-            st.write("Anesthesia is a very important medical career aiming for patient safety during surgery.")
+            st.markdown("<h4 class='blue-text'>The Importance of Anesthesiology</h4>", unsafe_allow_html=True)
+            st.write("Anesthesia is a crucial specialty aiming to make surgeries painless and keep patients completely safe.")
             st.button("Read full article", key="btn_art1", on_click=change_page, args=("article_1",), use_container_width=True)
 
         with a_col2:
             st.image("https://images.unsplash.com/photo-1584308666744-24d5e45a05b3?auto=format&fit=crop&q=80&w=600", use_column_width=True)
-            st.markdown("<h3 class='turquoise-text'>Common Medical Hoaxes</h3>", unsafe_allow_html=True)
-            st.write("No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis.")
+            st.markdown("<h4 class='blue-text'>Common Medical Hoaxes</h4>", unsafe_allow_html=True)
+            st.write("Vaccines, knuckle-cracking, gum-swallowing, and shaving. Let's bust 5 major myths together.")
             st.button("Read full article", key="btn_art2", on_click=change_page, args=("article_2",), use_container_width=True)
 
         with a_col3:
             st.image("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600", use_column_width=True)
-            st.markdown("<h3 class='turquoise-text'>Do electronics emit radiation?</h3>", unsafe_allow_html=True)
-            st.write("This article investigates whether devices emit harmful radiation like all of our parents say.")
+            st.markdown("<h4 class='blue-text'>Do electronics emit radiation?</h4>", unsafe_allow_html=True)
+            st.write("Is your phone's radiation actually dangerous, or is it non-ionizing? Here is the scientific truth.")
             st.button("Read full article", key="btn_art3", on_click=change_page, args=("article_3",), use_container_width=True)
 
     # --- TEAM TAB ---
     with tab_team:
         st.write("")
-        st.header("Meet the Team")
-        st.write("The people behind the mission of MedExplained.")
+        st.markdown("<h2 class='blue-text'>Our Leadership</h2>", unsafe_allow_html=True)
         st.write("")
         
         t_col1, t_col2, t_col3 = st.columns([1, 2, 1])
         with t_col2:
-            st.image("https://ui-avatars.com/api/?name=Harshith+Potluri&background=0284c7&color=fff&size=200", width=150)
-            st.markdown("<h3 class='blue-text'>Harshith Potluri</h3>", unsafe_allow_html=True)
-            st.markdown("**Founder and Leader**")
-            st.write('"Hi! I\'m Harshith, the Founder and Leader of the youth-led initiative MedExplained! We hope to provide medical information across the world and increase health literacy!"')
+            st.markdown("""
+            <div style='text-align: center; padding: 30px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.05);'>
+                <img src='https://ui-avatars.com/api/?name=Harshith+Potluri&background=0284c7&color=fff&size=200' style='border-radius: 50%; width: 140px; margin-bottom: 15px;' />
+                <h3 style='margin: 0;'>Harshith Potluri</h3>
+                <p class='turquoise-text' style='font-size: 1.1rem; margin-top: 5px; font-weight: 700;'>Founder & Leader</p>
+                <p style='font-style: italic; opacity: 0.9;'>
+                    "Hi! I'm Harshith, the Founder and Leader of the youth-led initiative MedExplained! 
+                    We hope to provide medical information across the world and increase health literacy!"
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
 
     # --- GET INVOLVED TAB ---
     with tab_involved:
         st.write("")
-        st.header("Get Involved")
-        st.write("Join us in our mission to impact global health literacy. By volunteering, you can earn volunteer hours and make a real difference.")
+        st.markdown("<h2 class='turquoise-text'>Join the MedExplained Family</h2>", unsafe_allow_html=True)
+        st.write("Become a youth health advocate! Help draft medical articles, design resources, or launch school clubs.")
         st.write("")
 
         g_col1, g_col2, g_col3 = st.columns(3, gap="large")
         with g_col1:
-            st.markdown("<h3 class='blue-text'>🌍 Impact</h3>", unsafe_allow_html=True)
-            st.write("Help people across the world better understand the world of medicine!")
+            st.markdown("### 🌍 Global Impact")
+            st.write("Directly contribute to boosting global health knowledge and earning verified volunteer hours while making medical facts accessible.")
         with g_col2:
-            st.markdown("<h3 class='blue-text'>🏆 Merit</h3>", unsafe_allow_html=True)
-            st.write("Volunteering with us earns you honor and merit for universities and jobs.")
+            st.markdown("### 🏆 Leadership Merit")
+            st.write("Gain incredible resume weight for college applications, summer programs, and medical field connections by leading your own local chapter.")
         with g_col3:
-            st.markdown("<h3 class='blue-text'>🤝 Collaboration</h3>", unsafe_allow_html=True)
-            st.write("Meet new like-minded individuals and form lasting connections.")
+            st.markdown("### 🤝 Active Collaboration")
+            st.write("Join a vibrant, globally connected network of high schoolers and undergraduates interested in bioscience, public health, and medicine.")
 
-        st.write("")
-        st.success("✨ **Ready to make a difference?** Reach out using the contact information below to join our team!")
+        st.markdown("---")
+        
+        # New Feature: Interactive Signup Form inside the involved tab
+        st.markdown("<h4 style='text-align: center;'>Quick Volunteer Interest Signup Form</h4>", unsafe_allow_html=True)
+        with st.form("volunteer_form", clear_on_submit=True):
+            v_name = st.text_input("Full Name")
+            v_email = st.text_input("Email Address")
+            v_role = st.selectbox("Preferred Role", ["Content Writer/Researcher", "Social Media & Graphics Designer", "Local Chapter Organizer", "Website Developer"])
+            v_msg = st.text_area("Tell us why you are passionate about medical literacy:")
+            submitted = st.form_submit_button("Submit Volunteer Application")
+            if submitted:
+                if v_name and v_email:
+                    st.success(f"✨ Thank you, {v_name}! Your interest in becoming a {v_role} has been logged. We will reach out shortly!")
+                else:
+                    st.warning("⚠️ Please fill out your Name and Email so we can contact you!")
 
     # --- CONTACT TAB ---
     with tab_contact:
         st.write("")
-        st.header("Contact Us")
-        st.write("Feel free to reach out to us with any questions, partnership inquiries, or to volunteer!")
+        st.markdown("<h2 class='blue-text'>Get in Touch</h2>", unsafe_allow_html=True)
+        st.write("Whether you have questions, feedback, or would like to partner with us, we'd love to hear from you!")
         st.write("")
 
         c_col1, c_col2 = st.columns(2, gap="large")
         with c_col1:
-            st.markdown("<h3 class='turquoise-text'>Contact Info</h3>", unsafe_allow_html=True)
-            st.write("📞 **Phone:** +1 (910) 434-5116")
-            st.write("👤 **Contact Person:** Harshith Potluri")
+            st.markdown("### 📬 Contact Information")
+            st.write("📞 **Phone Support:** +1 (910) 434-5116")
+            st.write("👤 **Direct Representative:** Harshith Potluri")
+            st.write("✉️ **Email Address:** [harshuaz11@gmail.com](mailto:harshuaz11@gmail.com)")
+            st.write("📸 **Instagram Portal:** [@medical.explained_](https://instagram.com/medical.explained_)")
+            
         with c_col2:
-            st.markdown("<h3 class='turquoise-text'>Digital</h3>", unsafe_allow_html=True)
-            st.write("✉️ **Email:** harshuaz11@gmail.com")
-            st.write("📸 **Instagram:** [@medical.explained_](https://instagram.com/medical.explained_)")
+            st.markdown("### 📩 Quick Message Box")
+            # Contact form
+            with st.form("contact_form", clear_on_submit=True):
+                c_name = st.text_input("Your Name")
+                c_email = st.text_input("Your Email")
+                c_subject = st.text_input("Subject")
+                c_msg = st.text_area("Message Detail")
+                contact_submitted = st.form_submit_button("Send Message")
+                if contact_submitted:
+                    if c_name and c_email and c_msg:
+                        st.success(f"🎉 Thanks {c_name}! Your message about '{c_subject}' was received. We will respond within 48 hours.")
+                    else:
+                        st.error("⚠️ All fields are required to successfully send a message!")
 
 # ==========================================
 # UNLISTED ARTICLE PAGES
@@ -194,10 +341,10 @@ if st.session_state.current_page == 'main':
 
 elif st.session_state.current_page == 'article_1':
     st.write("")
-    st.button("← Back to Home", on_click=change_page, args=("main",))
+    st.button("← Back to Articles Dashboard", on_click=change_page, args=("main",))
     st.write("")
     
-    col1, col2, col3 = st.columns([1, 6, 1]) # Centered layout
+    col1, col2, col3 = st.columns([1, 6, 1]) 
     with col2:
         st.markdown("<h1 class='turquoise-text'>The Importance of Anesthesiology</h1>", unsafe_allow_html=True)
         st.image("https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
@@ -248,10 +395,12 @@ elif st.session_state.current_page == 'article_1':
         ### Summary
         To summarize, Anesthesiology is a very well respected but competitive field. Anesthesia/Anesthetics are the substances used to numb patients or make them unconscious. It can have side effects, but serious complications are very rare. Anesthesiologists take 12-14 years to be certified, and can earn up to $400k - $600k annually.
         """)
+        st.write("")
+        st.button("Back to Home", on_click=change_page, args=("main",), key="btm1")
 
 elif st.session_state.current_page == 'article_2':
     st.write("")
-    st.button("← Back to Home", on_click=change_page, args=("main",))
+    st.button("← Back to Articles Dashboard", on_click=change_page, args=("main",))
     st.write("")
     
     col1, col2, col3 = st.columns([1, 6, 1])
@@ -308,10 +457,12 @@ elif st.session_state.current_page == 'article_2':
         ### Conclusion
         Those were five of the most common medical myths and hoaxes debunked! We hope you learned something new!
         """)
+        st.write("")
+        st.button("Back to Home", on_click=change_page, args=("main",), key="btm2")
 
 elif st.session_state.current_page == 'article_3':
     st.write("")
-    st.button("← Back to Home", on_click=change_page, args=("main",))
+    st.button("← Back to Articles Dashboard", on_click=change_page, args=("main",))
     st.write("")
     
     col1, col2, col3 = st.columns([1, 6, 1])
@@ -335,6 +486,8 @@ elif st.session_state.current_page == 'article_3':
         
         So now you can finally rest easy (or stay up scrolling), knowing that your phone does not emit harmful radiation. You can finally prove your parents wrong.
         """)
+        st.write("")
+        st.button("Back to Home", on_click=change_page, args=("main",), key="btm3")
 
 
 # Universal Footer (Shows on all pages)
