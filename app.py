@@ -201,58 +201,53 @@ elif st.session_state.current_page == 'article_1':
     with col2:
         st.markdown("<h1 class='turquoise-text'>The Importance of Anesthesiology</h1>", unsafe_allow_html=True)
         st.image("https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
-        st.write("Anesthesiology is a critical medical specialty focused on the total perioperative care of patients before, during, and after surgery. It encompasses anesthesia, intensive care medicine, critical emergency medicine, and pain medicine. Anesthesiologists play a vital role in ensuring patient safety, managing pain, and monitoring vital life functions throughout surgical procedures, allowing complex and life-saving operations to take place safely.")
+        st.write("")
         
-        st.info("👇 **Paste your actual full article text below!** 👇")
-        st.write("*Anesthesiology is the field of medicine which applies anesthesia to patients to keep them safe during surgery. But what exactly is anesthesia? Is it deadly? You will find out in this article!
-
-
- Anesthesiology is the field of medicine which applies anesthesia to patients to keep them safe during surgery. But first, what is anesthesia?
-
-
-
-
-Anesthesia is the substance used to make surgery painless for patients. Without anesthesia, surgery would by highly impractical and unethical, and in some cases it may even be impossible! Anesthesia can come as two different states: Gas (inhaled) or liquid/gel.
-
-
-
-Anesthesia can also come in as four different forms: 
-
-General Anesthesia: This type of anesthesia renders the patient and completely unconscious and motionless when used.
-
-Regional Anesthesia: This type of anesthesia numbs a large, specific part of the body.
-
-Local Anesthesia: This type of anesthesia numbs only a small specific area, usually for something such as stitches or dental filling.
-
-Sedation: Also known as "twilight sleep," this type of anesthesia relaxes the patient, ranging from light relaxation to deep sleep. However, the patient still has to breath on their own.
-
-
-
-
-Now you may be asking, "Why don't we just use general anesthesia for all types of surgeries, whether big or small?"
-
-
-
-For most patients, anesthesia can cause nausea, vomiting, dizziness, sore throat, temporary confusion, and shivering. These usually fade away after twenty-four hours, and are less effective when regional/local anesthesia is used. However, in some rare cases, anesthesia can also cause serious issues such as postoperative delirium, cognitive dysfunction, breathing problems, or allergic reactions. These risks are less prominent with regional/local anesthesia, but they can still happen.
-
-
-
-However, the risk of an anesthetic accident is incredibly low, being 1 for every 100,000 - 200,000 cases. If the patient is healthy and is just getting a routine checkup, the chances of an anesthetic accident are even lower, often less than 1 in a million.
-
-
-
-
-Now, lets get into the statistics of Anesthesiologists, from how much they make to how long they need to study to become qualified!
-
-Education: Anesthesiologists on average need to study about 12-14 years to become qualified. They must spend four years earning their bachelor's degree, four years in medical school, and four years in anesthesiology. They can also spend 1-2 optional years at a fellowship to gain specialization. Anesthesiologic medicine is very competitive however, and requires incredulous amounts of skill and passion.
-
-
-
-
-Earnings: The starting salary for Anesthesiologists in the United States is approximately $393,215. If an anesthesiologist is more specialized and more experienced, they can earn over $400,000 to $600,000 annually!
-
-
-To summarize, Anesthesiology is a very well respected but competitive field. Anesthesia/Anesthetics are the substances used to numb patients or make them unconscious. It can have side effects, but very rarely. Anesthesiologists take 12-14 years to be certified, and can earn up to $400k - $600k anually.*")
+        st.markdown("""
+        *Anesthesiology is the field of medicine which applies anesthesia to patients to keep them safe during surgery. But what exactly is anesthesia? Is it deadly? You will find out in this article!*
+        
+        Anesthesiology is the field of medicine which applies anesthesia to patients to keep them safe during surgery. But first, what is anesthesia?
+        
+        Anesthesia is the substance used to make surgery painless for patients. Without anesthesia, surgery would be highly impractical and unethical, and in some cases it may even be impossible! Anesthesia can come in two different states: **Gas (inhaled)** or **liquid/gel**.
+        
+        ### The Four Main Forms of Anesthesia
+        
+        1. **General Anesthesia:** This type of anesthesia renders the patient completely unconscious and motionless when used.
+        2. **Regional Anesthesia:** This type of anesthesia numbs a large, specific part of the body.
+        3. **Local Anesthesia:** This type of anesthesia numbs only a small specific area, usually for something such as stitches or a dental filling.
+        4. **Sedation:** Also known as "twilight sleep," this type of anesthesia relaxes the patient, ranging from light relaxation to deep sleep. However, the patient still has to breathe on their own.
+        
+        ---
+        
+        ### Side Effects and Risks
+        
+        Now you may be asking, *"Why don't we just use general anesthesia for all types of surgeries, whether big or small?"*
+        
+        For most patients, anesthesia can cause temporary side effects such as:
+        * Nausea and vomiting
+        * Dizziness
+        * Sore throat
+        * Temporary confusion
+        * Shivering
+        
+        These usually fade away within twenty-four hours, and are much less common when regional or local anesthesia is used. 
+        
+        In some rare cases, anesthesia can cause serious issues such as postoperative delirium, cognitive dysfunction, breathing problems, or allergic reactions. While these risks are less prominent with regional/local anesthesia, they can still happen.
+        
+        However, **the risk of an anesthetic accident is incredibly low**, being roughly 1 for every 100,000 to 200,000 cases. If the patient is healthy and is just getting a routine checkup, the chances of an anesthetic accident are even lower, often less than 1 in a million.
+        
+        ---
+        
+        ### Statistics of Anesthesiologists
+        
+        Let's look into what it takes to join this respected profession, from the education timeline to expected earnings:
+        
+        * **Education:** Anesthesiologists on average need to study about **12 to 14 years** to become qualified. They must spend four years earning their bachelor's degree, four years in medical school, and four years in an anesthesiology residency. They can also spend 1 to 2 optional years in a fellowship to gain a sub-specialization. Anesthesiologic medicine is highly competitive and requires incredible amounts of skill and passion.
+        * **Earnings:** The starting salary for Anesthesiologists in the United States is approximately **$393,215**. If an anesthesiologist is more specialized and experienced, they can earn between **$400,000 to $600,000 annually**!
+        
+        ### Summary
+        To summarize, Anesthesiology is a very well respected but competitive field. Anesthesia/Anesthetics are the substances used to numb patients or make them unconscious. It can have side effects, but serious complications are very rare. Anesthesiologists take 12-14 years to be certified, and can earn up to $400k - $600k annually.
+        """)
 
 elif st.session_state.current_page == 'article_2':
     st.write("")
@@ -263,42 +258,56 @@ elif st.session_state.current_page == 'article_2':
     with col2:
         st.markdown("<h1 class='turquoise-text'>Common Medical Hoaxes</h1>", unsafe_allow_html=True)
         st.image("https://images.unsplash.com/photo-1584308666744-24d5e45a05b3?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
-        st.write("The medical field is surrounded by myths that have been passed down for generations. For example, going outside with wet hair does not give you a cold—viruses do. Similarly, cracking your knuckles does not lead to arthritis; the popping sound is simply gas bubbles bursting in your synovial fluid. In this article, we debunk these and other widespread medical hoaxes to help you distinguish fact from fiction.")
+        st.write("")
         
-        st.info("👇 **Paste your actual full article text below!** 👇")
-        st.write("*No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.
-
-#1. Vaccines can cause autism.
-
-Vaccines simply do not give you autism. This myth originated from a fraudulent study study published in 1998. It was falsely concluded by Andrew Wakefield, the leader of the study, who concluded that the MMR (Measles, Mumps, and Rubella) vaccine had a correlation to autism and intestinal inflammation. However, it was later discovered that Andrew Wakefield was paid by lawyers who were suing vaccine manufacturers. Furthermore, Andrew Wakefield was trying to develop his own MMR vaccine to rival the prior vaccine, but ultimately ended up getting caught and having his medical license in the UK revoked. However, the myth still persists today, as many news stations and celebrities in the early 2000's fueled public fear, and the myth simply never died down.
-
-
-
-#2. Cracking Knuckles can cause Arthritis.
-
-
-This is simply not true. This myth most likely came from a assumption that the popping noise heard when cracking knuckles causes damage to your cartilage. This myth has been disproven by the brave Dr. Donald Unger, who cracked the knuckles of only one hand for fifty years. After those fifty years, he was proven to have no arthritis, deeming the myth as false. What really happens, is that nitrogen bubbles form, and when you crack your knuckles, they simply pop.
-
-
-#3. Swallowing Gum causes it to stay in your stomach for seven years.
-
-A myth we all used to believe as a kid, this myth has thankfully been disproven. While the body does not break down the gum, it still regularly goes through the digestive tract in roughly the same amount of time as other foods. The gum will not stick to the stomach walls or intestines, and instead goes through the digestive process regularly, eventually being excreted within a few days. This myth likely started as a old wives tale, scaring children into stop chewing gum.
-
-
-
-#4. Cold weather causes the Common Cold
-
-Surprisingly, cold weather doesn't actually cause the common cold. The common cold is caused by viruses. This myth originated from the observed pattern that we would get more sick during cold weather, however, there is no causation between cold weather and sickness. However, cold weather causes the ideal temperatures for viruses to grow and spread, as temperatures are cooler and there is less humidity.
-
-
-
-#5. Shaving your hair makes it grow back thicker, darker, and/or faster.
-
-Shaving your hair simply does not make it grow back thicker, darker, and/or faster. This myth has been proven false multiple times. This myth comes from over a hundred years ago, with a research paper being published about it, disproving it in 1928. Many people believe this myth due to the illusion of hair feeling blunt after shaving, but it is indeed untrue.
-
-
-
-And that concludes it! Those were five medical myths and hoaxes debunked! We hope you learned something new!*")
+        st.markdown("""
+        *No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.*
+        
+        ---
+        
+        ### 1. Vaccines can cause autism.
+        
+        **Vaccines simply do not give you autism.** This myth originated from a fraudulent study published in 1998. It was falsely concluded by Andrew Wakefield, the leader of the study, who claimed that the MMR (Measles, Mumps, and Rubella) vaccine had a correlation to autism and intestinal inflammation. 
+        
+        However, it was later discovered that Andrew Wakefield was paid by lawyers who were suing vaccine manufacturers. Furthermore, Wakefield was trying to develop his own alternative MMR vaccine to rival the existing one. He was ultimately caught, and his medical license in the UK was revoked. Despite being fully debunked, the myth still persists today because many news stations and celebrities in the early 2000s fueled public fear, keeping the myth alive in public memory.
+        
+        ---
+        
+        ### 2. Cracking Knuckles can cause Arthritis.
+        
+        **This is simply not true.** This myth most likely came from an assumption that the popping noise heard when cracking knuckles causes physical damage to your joint cartilage. 
+        
+        This myth was famously disproven by the brave Dr. Donald Unger, who cracked the knuckles of only his left hand for fifty years while leaving his right hand alone. After those fifty years, he examined both hands and was proven to have no arthritis in either, earning him an Ig Nobel Prize for his dedication. What really happens when you crack your joints is that dissolved nitrogen bubbles in your synovial fluid are popping.
+        
+        ---
+        
+        ### 3. Swallowing Gum causes it to stay in your stomach for seven years.
+        
+        A myth we all used to believe as kids, **this myth has thankfully been disproven.** While the human body cannot digest the synthetic rubber base of modern chewing gum, the gum still moves regularly through the digestive tract in roughly the same amount of time as other foods. 
+        
+        The gum will not stick to the stomach walls or intestines, and is instead safely excreted within a few days. This myth likely started as an old wives' tale to scare children from swallowing their gum.
+        
+        ---
+        
+        ### 4. Cold weather causes the Common Cold
+        
+        Surprisingly, **cold weather doesn't actually cause the common cold.** The common cold is caused entirely by viruses. 
+        
+        This myth originated from the obvious observed pattern that we get sick more often during cold weather. However, there is no direct causation between cold temperatures and the virus infecting you. Instead, cold weather causes people to stay indoors close to one another, making it easier for viruses to spread, and the cool, dry air provides ideal conditions for certain cold viruses to survive and travel.
+        
+        ---
+        
+        ### 5. Shaving your hair makes it grow back thicker, darker, and/or faster.
+        
+        **Shaving your hair simply does not make it grow back thicker, darker, or faster.** This myth has been proven false multiple times through scientific studies dating as far back as 1928. 
+        
+        Many people believe this myth due to a physical illusion: hair naturally tapers at the end, but when you shave it, you cut it at its thickest point near the root. As the short hair grows back out, the blunt edge feels coarser and looks darker than the tapered tip did, but the overall hair structure has not changed at all.
+        
+        ---
+        
+        ### Conclusion
+        Those were five of the most common medical myths and hoaxes debunked! We hope you learned something new!
+        """)
 
 elif st.session_state.current_page == 'article_3':
     st.write("")
@@ -309,30 +318,23 @@ elif st.session_state.current_page == 'article_3':
     with col2:
         st.markdown("<h1 class='turquoise-text'>Do electronics emit radiation?</h1>", unsafe_allow_html=True)
         st.image("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
-        st.write("It is a common concern that smartphones, laptops, and microwaves emit harmful radiation. While it is true that these devices emit electromagnetic radiation, it is 'non-ionizing' radiation. This means it lacks the energy required to break chemical bonds or cause DNA damage, unlike 'ionizing' radiation (such as X-rays). Current scientific consensus indicates that the low levels of non-ionizing radiation emitted by everyday electronics do not pose significant health risks to humans.")
+        st.write("")
         
-        st.info("👇 **Paste your actual full article text below!** 👇")
-        st.write("*We've all heard it from our parents before. "Get off of your phone. It causes radiation." But have we ever fact checked our parents? This article aims to figure out the legitimacy of this claim, and spoiler, the results may shock you!
-
-
-
-According to the U.S. Environmental Protection Agency, devices such as our Mobile Phones and TV screens do release radiation, known as radiofrequency radiation.
-
-
-
-HOWEVER...
-
-
-
-Radiofrequency radiation is not damaging. It is a form of non-ionizing radiation, meaning that it is not strong enough to damage DNA or cause cancer. This means that devices do not damage you through radiation.
-
-
-
-This proves that while devices emit radiation, the radiation is not harmful enough to cause any significant damage. To put this into comparison, a banana is far more radioactive than electronic devices, and bananas are eaten everyday!
-
-
-
-So now you can finally rest asleep (or stay up scrolling), knowing that your phone does not emit harmful radiation. You can finally prove your parents wrong.*")
+        st.markdown("""
+        We've all heard it from our parents before: *"Get off of your phone. It causes radiation."* But have we ever fact-checked our parents? This article aims to figure out the legitimacy of this claim. Spoiler alert: the results may shock you!
+        
+        According to the U.S. Environmental Protection Agency, devices such as our mobile phones, tablets, and TV screens do release radiation, specifically known as **radiofrequency radiation**.
+        
+        ### HOWEVER...
+        
+        **Radiofrequency radiation is not damaging.** It is a form of **non-ionizing radiation**, meaning that it lacks the energy required to break chemical bonds, damage your DNA, or cause cancer. Ionizing radiation (like X-rays or nuclear radiation) is dangerous, but the low-frequency non-ionizing waves from your electronic devices are perfectly safe.
+        
+        This proves that while devices emit radiation, the radiation is not harmful enough to cause any significant damage. 
+        
+        To put this into perspective, **a single banana is far more radioactive than electronic devices**, and bananas are eaten safely every single day!
+        
+        So now you can finally rest easy (or stay up scrolling), knowing that your phone does not emit harmful radiation. You can finally prove your parents wrong.
+        """)
 
 
 # Universal Footer (Shows on all pages)
