@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 # Configure the page settings
 st.set_page_config(
@@ -71,20 +72,6 @@ st.markdown("""
         border-left: 5px solid #2dd4bf;
         border-radius: 8px;
     }
-    
-    /* Responsive metric cards */
-    .metric-box {
-        text-align: center;
-        padding: 20px;
-        border-radius: 10px;
-        background: rgba(128, 128, 128, 0.05);
-        border-top: 4px solid #38bdf8;
-    }
-    .metric-val {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #2dd4bf;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -129,22 +116,8 @@ if st.session_state.current_page == 'main':
             st.image("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000", use_column_width=True)
 
         st.markdown("---")
-        
-        # New Feature: Live Global Impact Metrics
-        st.markdown("<h2 class='turquoise-text' style='text-align: center; margin-bottom: 30px;'>Our Global Impact</h2>", unsafe_allow_html=True)
-        m_col1, m_col2, m_col3, m_col4 = st.columns(4)
-        with m_col1:
-            st.markdown("<div class='metric-box'><div class='metric-val'>10,000+</div><div>Global Readers Reached</div></div>", unsafe_allow_html=True)
-        with m_col2:
-            st.markdown("<div class='metric-box'><div class='metric-val'>150+</div><div>Concepts Simplified</div></div>", unsafe_allow_html=True)
-        with m_col3:
-            st.markdown("<div class='metric-box'><div class='metric-val'>50+</div><div>Active Volunteers</div></div>", unsafe_allow_html=True)
-        with m_col4:
-            st.markdown("<div class='metric-box'><div class='metric-val'>100%</div><div>Free Resources Forever</div></div>", unsafe_allow_html=True)
 
-        st.markdown("---")
-
-        # New Feature: Interactive Medical MythBuster Widget
+        # Interactive Medical MythBuster Widget
         st.markdown("<h2 class='blue-text' style='text-align: center;'>🧠 Quick Health MythBuster Game</h2>", unsafe_allow_html=True)
         st.write("<p style='text-align: center;'>Test your medical knowledge! Are these statements True or False?</p>", unsafe_allow_html=True)
         
@@ -254,7 +227,8 @@ if st.session_state.current_page == 'main':
     # --- TEAM TAB ---
     with tab_team:
         st.write("")
-        st.markdown("<h2 class='blue-text'>Our Leadership</h2>", unsafe_allow_html=True)
+        st.header("Meet the Team")
+        st.write("The people behind the mission of MedExplained.")
         st.write("")
         
         t_col1, t_col2, t_col3 = st.columns([1, 2, 1])
@@ -291,19 +265,23 @@ if st.session_state.current_page == 'main':
 
         st.markdown("---")
         
-        # New Feature: Interactive Signup Form inside the involved tab
-        st.markdown("<h4 style='text-align: center;'>Quick Volunteer Interest Signup Form</h4>", unsafe_allow_html=True)
-        with st.form("volunteer_form", clear_on_submit=True):
-            v_name = st.text_input("Full Name")
-            v_email = st.text_input("Email Address")
-            v_role = st.selectbox("Preferred Role", ["Content Writer/Researcher", "Social Media & Graphics Designer", "Local Chapter Organizer", "Website Developer"])
-            v_msg = st.text_area("Tell us why you are passionate about medical literacy:")
-            submitted = st.form_submit_button("Submit Volunteer Application")
-            if submitted:
-                if v_name and v_email:
-                    st.success(f"✨ Thank you, {v_name}! Your interest in becoming a {v_role} has been logged. We will reach out shortly!")
-                else:
-                    st.warning("⚠️ Please fill out your Name and Email so we can contact you!")
+        # Embedded Google Form for Volunteer Signups
+        st.markdown("<h4 style='text-align: center;'>Volunteer Interest Signup Form</h4>", unsafe_allow_html=True)
+        st.write("<p style='text-align: center; opacity: 0.8;'>Submit your application below. Your responses will be securely logged directly to our system.</p>", unsafe_allow_html=True)
+        
+        # Center the Google Form on the page
+        col_form_1, col_form_2, col_form_3 = st.columns([1, 8, 1])
+        with col_form_2:
+            components.iframe(
+                "https://docs.google.com/forms/d/1sIS_cLAnovmQHTWf-FrBvByQvhOB8-OHBHTKOzMLilk/viewform?embedded=true", 
+                height=800, 
+                scrolling=True
+            )
+            
+            # Backup Link Button in case of iframe scaling on mobile devices
+            st.markdown("<div style='text-align: center; margin-top: 15px;'>", unsafe_allow_html=True)
+            st.link_button("👉 Having trouble? Click here to open the Form in a new window", "https://docs.google.com/forms/d/1sIS_cLAnovmQHTWf-FrBvByQvhOB8-OHBHTKOzMLilk/viewform", use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
     # --- CONTACT TAB ---
     with tab_contact:
