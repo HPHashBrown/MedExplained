@@ -8,33 +8,21 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for White, Blue, and Turquoise Theme (Flat design, no glassmorphism)
+# Custom CSS for Blue and Turquoise Theme (Adapts to Streamlit's Light/Dark mode)
 st.markdown("""
 <style>
-    /* Main background */
-    .stApp {
-        background-color: #ffffff;
-    }
-
     /* Text accents */
-    .blue-text { color: #0284c7; }
-    .turquoise-text { color: #0d9488; }
+    .blue-text { color: #38bdf8; } /* Lightened slightly to work on both backgrounds */
+    .turquoise-text { color: #2dd4bf; }
     
-    /* Headers */
-    h1, h2, h3 {
-        color: #0f172a;
-    }
-
     /* Tab navigation styling */
     .stTabs [data-baseweb="tab-list"] {
         gap: 32px;
-        background-color: #ffffff;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.2);
     }
     .stTabs [data-baseweb="tab"] {
         background-color: transparent;
         border-radius: 0;
-        color: #64748b;
         font-weight: 600;
         padding-top: 15px;
         padding-bottom: 15px;
@@ -44,19 +32,17 @@ st.markdown("""
         border-bottom: 3px solid #0d9488 !important; /* Turquoise active underline */
     }
 
-    /* Customizing info/success banners to fit the theme */
+    /* Customizing info/success banners to fit the theme using rgba for both light/dark mode support */
     div[data-testid="stExpander"] {
-        border: 1px solid #e0f2fe;
+        border: 1px solid rgba(2, 132, 199, 0.2);
         border-radius: 8px;
     }
     div[data-testid="stInfo"] {
-        background-color: #e0f2fe; /* Light blue */
-        color: #0369a1;
+        background-color: rgba(2, 132, 199, 0.1); /* Transparent blue */
         border: none;
     }
     div[data-testid="stSuccess"] {
-        background-color: #f0fdfa; /* Light turquoise */
-        color: #0f766e;
+        background-color: rgba(13, 148, 136, 0.1); /* Transparent turquoise */
         border: none;
     }
 </style>
@@ -193,4 +179,4 @@ with tab_contact:
         st.write("✉️ **Email:** harshuaz11@gmail.com")
         st.write("📸 **Instagram:** [@medical.explained_](https://instagram.com/medical.explained_)")
 
-st.markdown("<hr style='margin-top: 50px; border-color: #e2e8f0;'><center><small style='color: #64748b;'>© 2026 MedExplained. All rights reserved.</small></center>", unsafe_allow_html=True)
+st.markdown("<hr style='margin-top: 50px; border-color: rgba(128, 128, 128, 0.2);'><center><small>© 2026 MedExplained. All rights reserved.</small></center>", unsafe_allow_html=True)
