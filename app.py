@@ -1,5 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import requests
+import json
 
 # Configure the page settings
 st.set_page_config(
@@ -72,6 +74,54 @@ st.markdown("""
         border-left: 5px solid #2dd4bf;
         border-radius: 8px;
     }
+    
+    /* Jargon Translator specific styles */
+    .translator-box {
+        padding: 1.8rem;
+        border-radius: 16px;
+        border: 1px solid rgba(45, 212, 191, 0.3);
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.05) 0%, rgba(45, 212, 191, 0.05) 100%);
+        margin-bottom: 1rem;
+    }
+    .age-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin: 3px;
+        cursor: pointer;
+    }
+    .result-card {
+        padding: 1.5rem;
+        border-radius: 14px;
+        border: 2px solid rgba(45, 212, 191, 0.4);
+        background: rgba(45, 212, 191, 0.06);
+        margin-top: 1rem;
+        line-height: 1.7;
+        font-size: 1.05rem;
+    }
+    /* Myth Buster submission card */
+    .submit-card {
+        padding: 1.5rem;
+        border-radius: 14px;
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        background: rgba(56, 189, 248, 0.04);
+        margin-bottom: 1rem;
+    }
+    /* Leaderboard row */
+    .lb-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        background: rgba(255,255,255,0.03);
+        margin-bottom: 8px;
+        transition: all 0.2s ease;
+    }
+    .lb-row:hover { border-color: #2dd4bf; background: rgba(45, 212, 191, 0.06); }
 </style>
 """, unsafe_allow_html=True)
 
@@ -86,14 +136,65 @@ if 'quiz_answered' not in st.session_state:
 def change_page(page_name):
     st.session_state.current_page = page_name
 
+def call_claude_translator(text, age_mode, extra_context=""):
+    """Call Anthropic API to translate medical text into simple language."""
+    age_prompts = {
+        "Kid (Ages 8–11)": "a curious 9-year-old who loves animals and simple stories. Use very short sentences, fun analogies to everyday things like toys, food, or animals. Avoid all medical words — replace them with everyday words.",
+        "Teen (Ages 12–17)": "a smart 14-year-old who is interested in health and science but hasn't studied medicine. Use clear language, relatable analogies (sports, school, social media), and brief explanations of necessary medical terms.",
+        "Adult / Family": "an intelligent adult with no medical background who needs to understand a health situation for themselves or a family member. Be clear and empathetic. Define jargon in parentheses when needed.",
+        "Pre-Med / Advanced": "a motivated pre-med student or advanced high schooler who wants to understand the medical reasoning. You can use medical terms but explain their significance and clinical relevance."
+    }
+    
+    audience = age_prompts.get(age_mode, age_prompts["Adult / Family"])
+    context_line = f"\nAdditional context from user: {extra_context}" if extra_context else ""
+    
+    prompt = f"""You are MedExplained's AI Health Translator — a friendly, accurate medical communicator for a youth nonprofit focused on health literacy.
+
+Your job: Rewrite the following medical text so it is easy to understand for {audience}
+
+Rules:
+1. Keep all medically important facts — never omit key information
+2. Use simple vocabulary appropriate for the audience
+3. Use analogies where helpful (compare body processes to familiar things)
+4. Add a brief "What this means for you:" conclusion at the end
+5. Always include: "⚠️ This is for educational purposes only. Always consult a qualified healthcare provider for medical advice."
+6. Format your response clearly with the simplified explanation first, then the conclusion{context_line}
+
+Medical text to translate:
+---
+{text}
+---
+
+Respond with the simplified explanation in a warm, encouraging tone."""
+
+    try:
+        response = requests.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={"Content-Type": "application/json"},
+            json={
+                "model": "claude-sonnet-4-20250514",
+                "max_tokens": 1000,
+                "messages": [{"role": "user", "content": prompt}]
+            },
+            timeout=30
+        )
+        if response.status_code == 200:
+            data = response.json()
+            return data["content"][0]["text"], None
+        else:
+            return None, f"API error {response.status_code}"
+    except Exception as e:
+        return None, str(e)
+
+
 # ==========================================
 # MAIN PAGE ROUTE (Contains all the tabs)
 # ==========================================
 if st.session_state.current_page == 'main':
 
     # Navigation Tabs
-    tab_home, tab_about, tab_services, tab_articles, tab_team, tab_involved, tab_contact = st.tabs(
-        ["🏠 Home", "📖 About", "🛡️ Services", "✍️ Articles", "👥 Team", "🌍 Get Involved", "✉️ Contact"]
+    tab_home, tab_about, tab_translator, tab_mythbuster, tab_services, tab_articles, tab_team, tab_involved, tab_contact = st.tabs(
+        ["🏠 Home", "📖 About", "🤖 AI Translator", "🛡️ MythBuster", "⚙️ Services", "✍️ Articles", "👥 Team", "🌍 Get Involved", "✉️ Contact"]
     )
 
     # --- HOME TAB ---
@@ -111,6 +212,13 @@ if st.session_state.current_page == 'main':
             )
             st.write("")
             st.info("💡 **Our Mission:** Demystifying the world of medicine, breaking down barriers, and fostering a globally informed community.")
+            st.write("")
+            st.markdown("""
+            <div class='custom-card' style='background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(45,212,191,0.1)); border-color: #2dd4bf;'>
+                <h4 class='turquoise-text' style='margin:0 0 8px 0;'>🤖 NEW: AI Jargon Translator</h4>
+                <p style='margin:0; opacity:0.9;'>Paste confusing doctor's notes, lab results, or medical articles — our AI instantly rewrites them in plain English. Try it free in the <strong>AI Translator</strong> tab above!</p>
+            </div>
+            """, unsafe_allow_html=True)
 
         with col2:
             st.image("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000", use_column_width=True)
@@ -163,6 +271,162 @@ if st.session_state.current_page == 'main':
         
         with col_abt2:
             st.image("https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=800", use_column_width=True)
+
+    # --- AI TRANSLATOR TAB ---
+    with tab_translator:
+        st.write("")
+        st.markdown("<h2 class='blue-text'>🤖 AI Medical Jargon Translator</h2>", unsafe_allow_html=True)
+        st.write("Paste any confusing medical text — doctor's notes, lab results, research papers — and our AI will rewrite it in plain language you can actually understand.")
+        st.write("")
+
+        st.markdown("<div class='translator-box'>", unsafe_allow_html=True)
+
+        tr_col1, tr_col2 = st.columns([3, 2], gap="large")
+        
+        with tr_col1:
+            medical_text = st.text_area(
+                "📋 Paste your medical text here:",
+                height=200,
+                placeholder="Example: 'The patient presents with acute myocardial infarction with ST-segment elevation in leads II, III, and aVF, consistent with right coronary artery occlusion...'",
+                key="med_text_input"
+            )
+            extra_context = st.text_input(
+                "💬 Optional: Add context (e.g., 'This is about my 8-year-old son', 'This is from a cardiology report')",
+                placeholder="Any helpful background...",
+                key="extra_context"
+            )
+
+        with tr_col2:
+            st.markdown("#### 🎯 Who is this for?")
+            age_mode = st.radio(
+                "Select reading level:",
+                ["Kid (Ages 8–11)", "Teen (Ages 12–17)", "Adult / Family", "Pre-Med / Advanced"],
+                key="age_mode",
+                help="Choose the reading level that fits your audience. This changes the vocabulary and analogies used."
+            )
+            st.write("")
+            st.info("🔒 **Privacy:** Text you enter is processed by AI and not stored. Never enter identifying personal health information.")
+
+        st.markdown("</div>", unsafe_allow_html=True)
+        st.write("")
+
+        translate_col1, translate_col2, translate_col3 = st.columns([1, 2, 1])
+        with translate_col2:
+            translate_clicked = st.button("✨ Translate to Simple Language", use_container_width=True, key="translate_btn", type="primary")
+
+        if translate_clicked:
+            if not medical_text or len(medical_text.strip()) < 20:
+                st.warning("⚠️ Please paste at least a sentence or two of medical text to translate.")
+            else:
+                with st.spinner("🔬 MedExplained AI is simplifying this for you..."):
+                    result, error = call_claude_translator(medical_text.strip(), age_mode, extra_context)
+                
+                if error:
+                    st.error(f"Something went wrong: {error}. Please try again in a moment.")
+                else:
+                    st.markdown("---")
+                    st.markdown(f"<h4 class='turquoise-text'>✅ Simplified for: {age_mode}</h4>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='result-card'>{result.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
+                    st.write("")
+                    st.success("💡 **Tip:** Try changing the reading level above and translating again to compare explanations!")
+
+        st.markdown("---")
+        st.markdown("#### 📝 Example texts to try:")
+        ex_col1, ex_col2, ex_col3 = st.columns(3, gap="large")
+        with ex_col1:
+            st.markdown("""
+            <div class='custom-card'>
+                <strong>🫀 Cardiology</strong><br><small>
+                "The echocardiogram revealed a left ventricular ejection fraction of 35%, consistent with reduced systolic function and dilated cardiomyopathy."</small>
+            </div>
+            """, unsafe_allow_html=True)
+        with ex_col2:
+            st.markdown("""
+            <div class='custom-card'>
+                <strong>🧪 Lab Results</strong><br><small>
+                "HbA1c: 8.2% (elevated). FPG: 186 mg/dL. Microalbuminuria present. Findings consistent with poorly controlled Type 2 Diabetes Mellitus."</small>
+            </div>
+            """, unsafe_allow_html=True)
+        with ex_col3:
+            st.markdown("""
+            <div class='custom-card'>
+                <strong>🦴 Orthopedics</strong><br><small>
+                "MRI confirms anterior cruciate ligament tear with associated medial meniscus injury. Recommend arthroscopic reconstruction with patellar tendon autograft."</small>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # --- MYTHBUSTER SUBMISSION TAB ---
+    with tab_mythbuster:
+        st.write("")
+        st.markdown("<h2 class='turquoise-text'>🛡️ Community MythBuster</h2>", unsafe_allow_html=True)
+        st.write("Seen a suspicious health claim on TikTok, Instagram, or at school? Submit it below and our volunteer researchers will investigate and fact-check it!")
+        st.write("")
+
+        mb_col1, mb_col2 = st.columns([3, 2], gap="large")
+        
+        with mb_col1:
+            st.markdown("#### 📤 Submit a Health Rumor")
+            with st.form("myth_submission_form", clear_on_submit=True):
+                myth_claim = st.text_area("The claim you've seen or heard:", placeholder="e.g., 'Drinking lemon water cures cancer' or 'COVID vaccines contain microchips'", height=100)
+                myth_source = st.text_input("Where did you see it?", placeholder="e.g., TikTok, Instagram Reel, YouTube video, school rumor...")
+                myth_category = st.selectbox("Category:", ["General Health", "Vaccines & Immunity", "Nutrition & Diet", "Mental Health", "Medications & Treatments", "COVID-19", "Cancer", "Other"])
+                myth_name = st.text_input("Your name (optional, for recognition)")
+                myth_submitted = st.form_submit_button("🚀 Submit for Investigation", use_container_width=True)
+                
+                if myth_submitted:
+                    if myth_claim:
+                        st.success(f"✅ Thank you! Your submission has been logged. Our research volunteers will investigate: **'{myth_claim[:60]}...'**")
+                        st.info("📬 Verified myth-busts are published in our Articles section. You may receive recognition if your submission becomes a featured article!")
+                    else:
+                        st.error("Please enter the health claim you want investigated.")
+
+        with mb_col2:
+            st.markdown("#### 🏆 Community Leaderboard")
+            st.write("Top myth-busters this month:")
+            st.write("")
+            
+            # Sample leaderboard (to be replaced with real data)
+            leaderboard_data = [
+                ("🥇", "Harshith P.", "Founder", 42, "🌟 Verified Researcher"),
+                ("🥈", "Priya S.", "Researcher", 28, "✅ Fact Checker"),
+                ("🥉", "Alex M.", "Contributor", 19, "📝 Writer"),
+                ("4️⃣", "Jordan K.", "Volunteer", 11, "🔍 Investigator"),
+                ("5️⃣", "Mia T.", "Volunteer", 7, "🌱 Rising Star"),
+            ]
+            
+            for rank, name, role, submissions, badge in leaderboard_data:
+                st.markdown(f"""
+                <div class='lb-row'>
+                    <span style='font-size:1.2rem'>{rank} <strong>{name}</strong></span>
+                    <span style='opacity:0.7; font-size:0.85rem'>{badge}</span>
+                    <span class='turquoise-text' style='font-weight:700'>{submissions} pts</span>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            st.write("")
+            st.info("🎯 Earn points by submitting myths, writing fact-checks, and getting verified. Points count toward your volunteer certificate!")
+
+        st.markdown("---")
+        st.markdown("#### 📚 Recently Busted Myths")
+        
+        myths_db = [
+            ("✅ BUSTED", "Vaccines cause autism", "This originates from a 1998 fraudulent study. The researcher's license was revoked. Dozens of large-scale studies confirm vaccines do not cause autism.", "Vaccines & Immunity", "Dr. Sarah K.", "High Confidence"),
+            ("⚠️ MISLEADING", "Drinking 8 glasses of water a day is required", "Water needs vary significantly by body weight, activity level, climate, and diet. The '8 glasses' rule is an oversimplification with no specific scientific basis.", "Nutrition & Diet", "MedExplained Team", "High Confidence"),
+            ("✅ BUSTED", "You only use 10% of your brain", "Brain imaging studies show activity across virtually all brain regions. Every part of the brain has a known function.", "General Health", "Harshith P.", "High Confidence"),
+        ]
+        
+        for status, claim, explanation, category, reviewer, confidence in myths_db:
+            status_color = "#2dd4bf" if "BUSTED" in status else "#f59e0b"
+            st.markdown(f"""
+            <div class='submit-card'>
+                <div style='display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;'>
+                    <span style='font-weight:700; color:{status_color}'>{status}</span>
+                    <span style='font-size:0.78rem; opacity:0.6'>🏷️ {category} · Reviewed by {reviewer}</span>
+                </div>
+                <strong>{claim}</strong><br>
+                <small style='opacity:0.85; line-height:1.6'>{explanation}</small>
+            </div>
+            """, unsafe_allow_html=True)
 
     # --- SERVICES TAB ---
     with tab_services:
