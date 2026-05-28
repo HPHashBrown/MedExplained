@@ -1,5 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import smtplib
+from email.message import EmailMessage
 
 # Configure the page settings
 st.set_page_config(
@@ -250,12 +252,11 @@ if st.session_state.current_page == 'main':
 import smtplib
 from email.message import EmailMessage
 
-# Helper function to send emails
+# Place this function definition before your main page logic
 def send_email(sender_name, sender_email, subject, message_body):
-    # Configure your email credentials here or use st.secrets
-    # Example for Gmail:
     EMAIL_ADDRESS = "harshuaz11@gmail.com"
-    EMAIL_PASSWORD = "your-app-password-here" # Generate this in Google Account settings
+    # Ensure this is a Google App Password, not your login password
+    EMAIL_PASSWORD = "your-app-password-here" 
 
     msg = EmailMessage()
     msg.set_content(f"Name: {sender_name}\nEmail: {sender_email}\n\nMessage:\n{message_body}")
@@ -269,7 +270,7 @@ def send_email(sender_name, sender_email, subject, message_body):
             smtp.send_message(msg)
         return True
     except Exception as e:
-        st.error(f"Error sending email: {e}")
+        st.error(f"Error: {e}")
         return False
 
 # ... existing code (keep everything else until the form section) ...
@@ -277,23 +278,22 @@ def send_email(sender_name, sender_email, subject, message_body):
         with c_col2:
             st.markdown("### 📩 Quick Message Box")
             # Contact form
-            with st.form("contact_form", clear_on_submit=True):
-                c_name = st.text_input("Your Name")
-                c_email = st.text_input("Your Email")
-                c_subject = st.text_input("Subject")
-                c_msg = st.text_area("Message Detail")
-                contact_submitted = st.form_submit_button("Send Message")
-                
-                if contact_submitted:
-                    if c_name and c_email and c_msg:
-                        with st.spinner("Sending message..."):
-                            success = send_email(c_name, c_email, c_subject, c_msg)
-                            if success:
-                                st.success(f"🎉 Thanks {c_name}! Your message was sent successfully.")
-                            else:
-                                st.error("⚠️ Failed to send message. Please check server logs.")
-                    else:
-                        st.error("⚠️ All fields are required to successfully send a message!")
+with st.form("contact_form", clear_on_submit=True):
+    c_name = st.text_input("Your Name")
+    c_email = st.text_input("Your Email")
+    c_subject = st.text_input("Subject")
+    c_msg = st.text_area("Message Detail")
+    contact_submitted = st.form_submit_button("Send Message")
+    
+    if contact_submitted:
+        if c_name and c_email and c_msg:
+            with st.spinner("Sending message..."):
+                if send_email(c_name, c_email, c_subject, c_msg):
+                    st.success(f"🎉 Thanks {c_name}! Your message was sent.")
+                else:
+                    st.error("⚠️ Message failed to send.")
+        else:
+            st.error("⚠️ Please fill in all fields.")
 
 # ==========================================
 # UNLISTED ARTICLE PAGES
