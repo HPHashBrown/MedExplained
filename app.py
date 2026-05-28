@@ -360,24 +360,39 @@ elif st.session_state.current_page == 'article_2':
         st.image("https://images.unsplash.com/photo-1579684385127-1ecd15d5bfbc?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         st.write("")
         st.markdown("""
-        *No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.*
-        
-        ---
-        
-        ### 1. Vaccines can cause autism.
-        **Vaccines simply do not give you autism.** This myth originated from a fraudulent study in 1998 by Andrew Wakefield, which was later fully debunked after it was revealed he had financial conflicts of interest.
-        
-        ### 2. Cracking Knuckles can cause Arthritis.
-        **This is simply not true.** Dr. Donald Unger disproved this by cracking the knuckles of only his left hand for fifty years and finding no arthritis in either hand.
-        
-        ### 3. Swallowing Gum causes it to stay in your stomach for seven years.
-        **This has been disproven.** The human body cannot digest the gum base, but it moves through the digestive tract and is excreted within a few days.
-        
-        ### 4. Cold weather causes the Common Cold
-        **Cold weather doesn't actually cause the common cold.** The cold is caused by viruses, which spread more easily in winter because people gather indoors.
-        
-        ### 5. Shaving your hair makes it grow back thicker.
-        **This is a physical illusion.** Shaving cuts the hair at its thickest point, making the regrowth feel coarser, but the hair structure itself does not change.
+        *No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.
+
+#1. Vaccines can cause autism.
+
+Vaccines simply do not give you autism. This myth originated from a fraudulent study study published in 1998. It was falsely concluded by Andrew Wakefield, the leader of the study, who concluded that the MMR (Measles, Mumps, and Rubella) vaccine had a correlation to autism and intestinal inflammation. However, it was later discovered that Andrew Wakefield was paid by lawyers who were suing vaccine manufacturers. Furthermore, Andrew Wakefield was trying to develop his own MMR vaccine to rival the prior vaccine, but ultimately ended up getting caught and having his medical license in the UK revoked. However, the myth still persists today, as many news stations and celebrities in the early 2000's fueled public fear, and the myth simply never died down.
+
+
+
+#2. Cracking Knuckles can cause Arthritis.
+
+
+This is simply not true. This myth most likely came from a assumption that the popping noise heard when cracking knuckles causes damage to your cartilage. This myth has been disproven by the brave Dr. Donald Unger, who cracked the knuckles of only one hand for fifty years. After those fifty years, he was proven to have no arthritis, deeming the myth as false. What really happens, is that nitrogen bubbles form, and when you crack your knuckles, they simply pop.
+
+
+#3. Swallowing Gum causes it to stay in your stomach for seven years.
+
+A myth we all used to believe as a kid, this myth has thankfully been disproven. While the body does not break down the gum, it still regularly goes through the digestive tract in roughly the same amount of time as other foods. The gum will not stick to the stomach walls or intestines, and instead goes through the digestive process regularly, eventually being excreted within a few days. This myth likely started as a old wives tale, scaring children into stop chewing gum.
+
+
+
+#4. Cold weather causes the Common Cold
+
+Surprisingly, cold weather doesn't actually cause the common cold. The common cold is caused by viruses. This myth originated from the observed pattern that we would get more sick during cold weather, however, there is no causation between cold weather and sickness. However, cold weather causes the ideal temperatures for viruses to grow and spread, as temperatures are cooler and there is less humidity.
+
+
+
+#5. Shaving your hair makes it grow back thicker, darker, and/or faster.
+
+Shaving your hair simply does not make it grow back thicker, darker, and/or faster. This myth has been proven false multiple times. This myth comes from over a hundred years ago, with a research paper being published about it, disproving it in 1928. Many people believe this myth due to the illusion of hair feeling blunt after shaving, but it is indeed untrue.
+
+
+
+And that concludes it! Those were five medical myths and hoaxes debunked! We hope you learned something new!
         """)
         st.write("")
         st.button("Back to Home", on_click=change_page, args=("main",), key="btm2")
@@ -393,16 +408,27 @@ elif st.session_state.current_page == 'article_3':
         st.image("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         st.write("")
         st.markdown("""
-        We've all heard it from our parents: *"Get off of your phone. It causes radiation."* This article aims to figure out the legitimacy of this claim.
-        
-        According to the U.S. Environmental Protection Agency, devices such as our mobile phones, tablets, and TV screens do release **radiofrequency radiation**.
-        
-        ### HOWEVER...
-        **Radiofrequency radiation is not damaging.** It is a form of **non-ionizing radiation**, meaning it lacks the energy required to break chemical bonds, damage your DNA, or cause cancer. 
-        
-        To put this into perspective, **a single banana is far more radioactive than electronic devices**, and bananas are eaten safely every single day!
-        
-        So now you can finally rest easy, knowing that your phone does not emit harmful radiation.
+We've all heard it from our parents before. "Get off of your phone. It causes radiation." But have we ever fact checked our parents? This article aims to figure out the legitimacy of this claim, and spoiler, the results may shock you!
+
+
+
+According to the U.S. Environmental Protection Agency, devices such as our Mobile Phones and TV screens do release radiation, known as radiofrequency radiation.
+
+
+
+HOWEVER...
+
+
+
+Radiofrequency radiation is not damaging. It is a form of non-ionizing radiation, meaning that it is not strong enough to damage DNA or cause cancer. This means that devices do not damage you through radiation.
+
+
+
+This proves that while devices emit radiation, the radiation is not harmful enough to cause any significant damage. To put this into comparison, a banana is far more radioactive than electronic devices, and bananas are eaten everyday!
+
+
+
+So now you can finally rest asleep (or stay up scrolling), knowing that your phone does not emit harmful radiation. You can finally prove your parents wrong.
         """)
         st.write("")
         st.button("Back to Home", on_click=change_page, args=("main",), key="btm3")
