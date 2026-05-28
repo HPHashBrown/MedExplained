@@ -280,7 +280,7 @@ if st.session_state.current_page == 'main':
 
         with c_col1:
             st.markdown("### 📬 Contact Information")
-            st.write("📧 **Email:** harshuaz11@gmail.com")
+            st.write("📱 **Instagram:** @medical.explained_")
             st.write("🌍 **Organization:** MedExplained")
 
         with c_col2:
