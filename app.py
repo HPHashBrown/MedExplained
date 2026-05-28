@@ -302,7 +302,6 @@ with st.form("contact_form", clear_on_submit=True):
 elif st.session_state.current_page == 'article_1':
     st.write("")
     st.button("← Back to Articles Dashboard", on_click=change_page, args=("main",))
-    st.write("")
     
     col1, col2, col3 = st.columns([1, 6, 1]) 
     with col2:
