@@ -185,7 +185,7 @@ if st.session_state.current_page == 'main':
             st.button("Read full article", key="btn_art1", on_click=change_page, args=("article_1",), use_container_width=True)
 
         with a_col2:
-            st.image("https://images.unsplash.com/photo-1584308666744-24d5e45a05b3?auto=format&fit=crop&q=80&w=600", use_column_width=True)
+            st.image("https://images.unsplash.com/photo-1579684385127-1ecd15d5bfbc?auto=format&fit=crop&q=80&w=600", use_column_width=True)
             st.markdown("<h4 class='blue-text'>Common Medical Hoaxes</h4>", unsafe_allow_html=True)
             st.write("Vaccines, knuckle-cracking, gum-swallowing, and shaving. Let's bust 5 major myths together.")
             st.button("Read full article", key="btn_art2", on_click=change_page, args=("article_2",), use_container_width=True)
@@ -356,7 +356,7 @@ elif st.session_state.current_page == 'article_2':
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
         st.markdown("<h1 class='turquoise-text'>Common Medical Hoaxes</h1>", unsafe_allow_html=True)
-        st.image("https://images.unsplash.com/photo-1584308666744-24d5e45a05b3?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
+        st.image("https://images.unsplash.com/photo-1579684385127-1ecd15d5bfbc?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         st.write("")
         
         st.markdown("""
