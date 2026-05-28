@@ -360,7 +360,7 @@ elif st.session_state.current_page == 'article_2':
         st.image("https://images.unsplash.com/photo-1579684385127-1ecd15d5bfbc?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         st.write("")
         st.markdown("""
-        *No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.
+        No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.
 
 #1. Vaccines can cause autism.
 
