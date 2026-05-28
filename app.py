@@ -3,6 +3,25 @@ import streamlit.components.v1 as components
 import smtplib
 from email.message import EmailMessage
 
+def send_email(sender_name, sender_email, subject, message_body):
+    EMAIL_ADDRESS = "harshuaz11@gmail.com"
+    EMAIL_PASSWORD = "your-app-password-here"
+
+    msg = EmailMessage()
+    msg.set_content(f"Name: {sender_name}\nEmail: {sender_email}\n\nMessage:\n{message_body}")
+    msg['Subject'] = f"MedExplained Contact: {subject}"
+    msg['From'] = EMAIL_ADDRESS
+    msg['To'] = EMAIL_ADDRESS
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            smtp.send_message(msg)
+        return True
+    except Exception as e:
+        st.error(f"Error: {e}")
+        return False
+
 # Configure the page settings
 st.set_page_config(
     page_title="MedExplained | Simplified Medical Knowledge",
@@ -248,52 +267,39 @@ if st.session_state.current_page == 'main':
             st.write("Join a vibrant, globally connected network of high schoolers and undergraduates interested in bioscience, public health, and medicine.")
 
         st.markdown("---")
-        
-import smtplib
-from email.message import EmailMessage
 
-# Place this function definition before your main page logic
-def send_email(sender_name, sender_email, subject, message_body):
-    EMAIL_ADDRESS = "harshuaz11@gmail.com"
-    # Ensure this is a Google App Password, not your login password
-    EMAIL_PASSWORD = "your-app-password-here" 
+    # --- CONTACT TAB ---
+    with tab_contact:
+        st.write("")
+        st.markdown("<h2 class='blue-text'>Get In Touch</h2>", unsafe_allow_html=True)
+        st.write("Have a question, suggestion, or want to collaborate? Reach out to us!")
+        st.write("")
 
-    msg = EmailMessage()
-    msg.set_content(f"Name: {sender_name}\nEmail: {sender_email}\n\nMessage:\n{message_body}")
-    msg['Subject'] = f"MedExplained Contact: {subject}"
-    msg['From'] = EMAIL_ADDRESS
-    msg['To'] = EMAIL_ADDRESS
+        c_col1, c_col2 = st.columns(2, gap="large")
 
-    try:
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            smtp.send_message(msg)
-        return True
-    except Exception as e:
-        st.error(f"Error: {e}")
-        return False
-
-# ... existing code (keep everything else until the form section) ...
+        with c_col1:
+            st.markdown("### 📬 Contact Information")
+            st.write("📧 **Email:** harshuaz11@gmail.com")
+            st.write("🌍 **Organization:** MedExplained")
 
         with c_col2:
             st.markdown("### 📩 Quick Message Box")
-            # Contact form
-with st.form("contact_form", clear_on_submit=True):
-    c_name = st.text_input("Your Name")
-    c_email = st.text_input("Your Email")
-    c_subject = st.text_input("Subject")
-    c_msg = st.text_area("Message Detail")
-    contact_submitted = st.form_submit_button("Send Message")
-    
-    if contact_submitted:
-        if c_name and c_email and c_msg:
-            with st.spinner("Sending message..."):
-                if send_email(c_name, c_email, c_subject, c_msg):
-                    st.success(f"🎉 Thanks {c_name}! Your message was sent.")
-                else:
-                    st.error("⚠️ Message failed to send.")
-        else:
-            st.error("⚠️ Please fill in all fields.")
+            with st.form("contact_form", clear_on_submit=True):
+                c_name = st.text_input("Your Name")
+                c_email = st.text_input("Your Email")
+                c_subject = st.text_input("Subject")
+                c_msg = st.text_area("Message Detail")
+                contact_submitted = st.form_submit_button("Send Message")
+
+                if contact_submitted:
+                    if c_name and c_email and c_msg:
+                        with st.spinner("Sending message..."):
+                            if send_email(c_name, c_email, c_subject, c_msg):
+                                st.success(f"🎉 Thanks {c_name}! Your message was sent.")
+                            else:
+                                st.error("⚠️ Message failed to send.")
+                    else:
+                        st.error("⚠️ Please fill in all fields.")
 
 # ==========================================
 # UNLISTED ARTICLE PAGES
