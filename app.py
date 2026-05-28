@@ -247,39 +247,33 @@ if st.session_state.current_page == 'main':
 
         st.markdown("---")
         
-        # Embedded Google Form for Volunteer Signups
-        st.markdown("<h4 style='text-align: center;'>Volunteer Interest Signup Form</h4>", unsafe_allow_html=True)
-        st.write("<p style='text-align: center; opacity: 0.8;'>Submit your application below. Your responses will be securely logged directly to our system.</p>", unsafe_allow_html=True)
-        
-        # Center the Google Form on the page
-        col_form_1, col_form_2, col_form_3 = st.columns([1, 8, 1])
-        with col_form_2:
-            components.iframe(
-                "https://docs.google.com/forms/d/1sIS_cLAnovmQHTWf-FrBvByQvhOB8-OHBHTKOzMLilk/viewform?embedded=true", 
-                height=800, 
-                scrolling=True
-            )
-            
-            # Backup Link Button in case of iframe scaling on mobile devices
-            st.markdown("<div style='text-align: center; margin-top: 15px;'>", unsafe_allow_html=True)
-            st.link_button("👉 Having trouble? Click here to open the Form in a new window", "https://docs.google.com/forms/d/1sIS_cLAnovmQHTWf-FrBvByQvhOB8-OHBHTKOzMLilk/viewform", use_container_width=True)
-            st.markdown("</div>", unsafe_allow_html=True)
+import smtplib
+from email.message import EmailMessage
 
-    # --- CONTACT TAB ---
-    with tab_contact:
-        st.write("")
-        st.markdown("<h2 class='blue-text'>Get in Touch</h2>", unsafe_allow_html=True)
-        st.write("Whether you have questions, feedback, or would like to partner with us, we'd love to hear from you!")
-        st.write("")
+# Helper function to send emails
+def send_email(sender_name, sender_email, subject, message_body):
+    # Configure your email credentials here or use st.secrets
+    # Example for Gmail:
+    EMAIL_ADDRESS = "harshuaz11@gmail.com"
+    EMAIL_PASSWORD = "your-app-password-here" # Generate this in Google Account settings
 
-        c_col1, c_col2 = st.columns(2, gap="large")
-        with c_col1:
-            st.markdown("### 📬 Contact Information")
-            st.write("📞 **Phone Support:** +1 (910) 434-5116")
-            st.write("👤 **Direct Representative:** Harshith Potluri")
-            st.write("✉️ **Email Address:** [harshuaz11@gmail.com](mailto:harshuaz11@gmail.com)")
-            st.write("📸 **Instagram Portal:** [@medical.explained_](https://instagram.com/medical.explained_)")
-            
+    msg = EmailMessage()
+    msg.set_content(f"Name: {sender_name}\nEmail: {sender_email}\n\nMessage:\n{message_body}")
+    msg['Subject'] = f"MedExplained Contact: {subject}"
+    msg['From'] = EMAIL_ADDRESS
+    msg['To'] = EMAIL_ADDRESS
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            smtp.send_message(msg)
+        return True
+    except Exception as e:
+        st.error(f"Error sending email: {e}")
+        return False
+
+# ... existing code (keep everything else until the form section) ...
+
         with c_col2:
             st.markdown("### 📩 Quick Message Box")
             # Contact form
@@ -289,9 +283,15 @@ if st.session_state.current_page == 'main':
                 c_subject = st.text_input("Subject")
                 c_msg = st.text_area("Message Detail")
                 contact_submitted = st.form_submit_button("Send Message")
+                
                 if contact_submitted:
                     if c_name and c_email and c_msg:
-                        st.success(f"🎉 Thanks {c_name}! Your message about '{c_subject}' was received. We will respond within 48 hours.")
+                        with st.spinner("Sending message..."):
+                            success = send_email(c_name, c_email, c_subject, c_msg)
+                            if success:
+                                st.success(f"🎉 Thanks {c_name}! Your message was sent successfully.")
+                            else:
+                                st.error("⚠️ Failed to send message. Please check server logs.")
                     else:
                         st.error("⚠️ All fields are required to successfully send a message!")
 
