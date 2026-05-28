@@ -4,8 +4,9 @@ import smtplib
 from email.message import EmailMessage
 
 def send_email(sender_name, sender_email, subject, message_body):
-    EMAIL_ADDRESS = "harshuaz11@gmail.com"
-    EMAIL_PASSWORD = "your-app-password-here"
+    # This now pulls from the secrets.toml file instead of hardcoded strings
+    EMAIL_ADDRESS = st.secrets["EMAIL_ADDRESS"]
+    EMAIL_PASSWORD = st.secrets["EMAIL_PASSWORD"]
 
     msg = EmailMessage()
     msg.set_content(f"Name: {sender_name}\nEmail: {sender_email}\n\nMessage:\n{message_body}")
