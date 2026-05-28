@@ -204,7 +204,7 @@ if st.session_state.current_page == 'main':
         st.write("The people behind the mission of MedExplained.")
         st.write("")
         
-        t_col1, t_col2, t_col3 = st.columns()
+        t_col1, t_col2, t_col3 = st.columns(3)
         with t_col2:
             st.markdown("""
             <div style='text-align: center; padding: 30px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.05);'>
