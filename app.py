@@ -451,4 +451,4 @@ elif st.session_state.current_page == 'article_3':
 
 
 # Universal Footer (Shows on all pages)
-st.markdown("<hr style='margin-top: 50px; border-color: rgba(128, 12
+st.markdown("<hr style='margin-top: 50px; border-color: rgba(128, 128, 128, 0.2);'><center><small>© 2026 MedExplained. All rights reserved.</small></center>", unsafe_allow_html=True)
