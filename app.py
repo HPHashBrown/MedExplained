@@ -185,7 +185,8 @@ if st.session_state.current_page == 'main':
             st.button("Read full article", key="btn_art1", on_click=change_page, args=("article_1",), use_container_width=True)
 
         with a_col2:
-            st.image("https://images.unsplash.com/photo-1579684385127-1ecd15d5bfbc?auto=format&fit=crop&q=80&w=600", use_column_width=True)
+            # Updated to a more stable Unsplash URL
+            st.image("https://images.unsplash.com/photo-1516542076529-1ea3854896f5?auto=format&fit=crop&q=80&w=600", use_column_width=True)
             st.markdown("<h4 class='blue-text'>Common Medical Hoaxes</h4>", unsafe_allow_html=True)
             st.write("Vaccines, knuckle-cracking, gum-swallowing, and shaving. Let's bust 5 major myths together.")
             st.button("Read full article", key="btn_art2", on_click=change_page, args=("article_2",), use_container_width=True)
@@ -203,11 +204,20 @@ if st.session_state.current_page == 'main':
         st.write("The people behind the mission of MedExplained.")
         st.write("")
         
-        t_col1, t_col2, t_col3 = st.columns([1, 2, 1])
+        t_col1, t_col2, t_col3 = st.columns()
         with t_col2:
             st.markdown("""
             <div style='text-align: center; padding: 30px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.05);'>
-                <img src='https://ui-avatars.com/api/?name=Harshith+Potluri&background=0284c7&color=fff&size=200' style='border-radius: 50%; width: 140px; margin-bottom: 15px;' />
+            """, unsafe_allow_html=True)
+            
+            # Using the requested local headshot file
+            try:
+                st.image("headshot.jpg", width=200)
+            except Exception:
+                st.warning("Headshot image not found. Ensure 'headshot.jpg' is in your app directory.")
+                st.image('https://ui-avatars.com/api/?name=Harshith+Potluri&background=0284c7&color=fff&size=200')
+                
+            st.markdown("""
                 <h3 style='margin: 0;'>Harshith Potluri</h3>
                 <p class='turquoise-text' style='font-size: 1.1rem; margin-top: 5px; font-weight: 700;'>Founder & Leader</p>
                 <p style='font-style: italic; opacity: 0.9;'>
@@ -441,4 +451,4 @@ elif st.session_state.current_page == 'article_3':
 
 
 # Universal Footer (Shows on all pages)
-st.markdown("<hr style='margin-top: 50px; border-color: rgba(128, 128, 128, 0.2);'><center><small>© 2026 MedExplained. All rights reserved.</small></center>", unsafe_allow_html=True)
+st.markdown("<hr style='margin-top: 50px; border-color: rgba(128, 12
