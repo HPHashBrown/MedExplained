@@ -357,7 +357,6 @@ elif st.session_state.current_page == 'article_2':
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
         st.markdown("<h1 class='turquoise-text'>Common Medical Hoaxes</h1>", unsafe_allow_html=True)
-        st.image("https://images.unsplash.com/photo-1579684385127-1ecd15d5bfbc?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         st.write("")
         st.markdown("""
         No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.
