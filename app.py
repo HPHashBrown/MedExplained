@@ -191,7 +191,7 @@ if st.session_state.current_page == 'main':
             </div>
             """, unsafe_allow_html=True)
 
-   # --- ARTICLES TAB ---
+# --- ARTICLES TAB ---
     with tab_articles:
         st.write("")
         st.markdown("<h2 class='turquoise-text'>Featured Medical Articles</h2>", unsafe_allow_html=True)
@@ -204,27 +204,30 @@ if st.session_state.current_page == 'main':
         with a_col1:
             st.image("https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=600", use_column_width=True)
             st.markdown("<h4 class='blue-text'>The Importance of Anesthesiology</h4>", unsafe_allow_html=True)
+            st.write("Anesthesia is a crucial specialty aiming to make surgeries painless and keep patients completely safe.")
             st.button("Read full article", key="btn_art1", on_click=change_page, args=("article_1",), use_container_width=True)
 
         with a_col2:
             st.image("https://images.unsplash.com/photo-1516542076529-1ea3854896f5?auto=format&fit=crop&q=80&w=600", use_column_width=True)
             st.markdown("<h4 class='blue-text'>Common Medical Hoaxes</h4>", unsafe_allow_html=True)
+            st.write("Vaccines, knuckle-cracking, gum-swallowing, and shaving. Let's bust 5 major myths together.")
             st.button("Read full article", key="btn_art2", on_click=change_page, args=("article_2",), use_container_width=True)
 
         with a_col3:
             st.image("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600", use_column_width=True)
             st.markdown("<h4 class='blue-text'>Do electronics emit radiation?</h4>", unsafe_allow_html=True)
+            st.write("Is your phone's radiation actually dangerous, or is it non-ionizing? Here is the scientific truth.")
             st.button("Read full article", key="btn_art3", on_click=change_page, args=("article_3",), use_container_width=True)
 
-        # Row 2 (This defines a_col4 so the code won't crash!)
+        # Row 2
         a_col4, a_col5, a_col6 = st.columns(3, gap="large")
         
         with a_col4:
             st.image("https://images.unsplash.com/photo-1579954115560-642993130388?auto=format&fit=crop&q=80&w=600", use_column_width=True)
             st.markdown("<h4 class='blue-text'>Brain Freeze: Why it happens</h4>", unsafe_allow_html=True)
-            st.write("Ever had a sharp pain from ice cream? Discover the science of 'brain freeze'.")
+            st.write("Ever had a sharp pain from ice cream? Discover the science of 'brain freeze' and why it's actually referred pain.")
             st.button("Read full article", key="btn_art4", on_click=change_page, args=("article_4",), use_container_width=True)
-
+            
     # --- TEAM TAB ---
     with tab_team:
         st.write("")
