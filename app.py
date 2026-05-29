@@ -219,6 +219,12 @@ if st.session_state.current_page == 'main':
             st.write("Is your phone's radiation actually dangerous, or is it non-ionizing? Here is the scientific truth.")
             st.button("Read full article", key="btn_art3", on_click=change_page, args=("article_3",), use_container_width=True)
 
+        with a_colX: # Replace X with the appropriate column number
+            st.image("https://images.unsplash.com/photo-1579954115560-642993130388?auto=format&fit=crop&q=80&w=600")
+            st.markdown("<h4 class='blue-text'>Brain Freeze: Why it happens</h4>", unsafe_allow_html=True)
+            st.write("Ever had a sharp pain from ice cream? Discover the science of 'brain freeze' and why it's actually referred pain.")
+            st.button("Read full article", key="btn_art4", on_click=change_page, args=("article_4",), use_container_width=True)
+
     # --- TEAM TAB ---
     with tab_team:
         st.write("")
@@ -432,3 +438,44 @@ So now you can finally rest asleep (or stay up scrolling), knowing that your pho
         """)
         st.write("")
         st.button("Back to Home", on_click=change_page, args=("main",), key="btm3")
+
+elif st.session_state.current_page == 'article_4':
+    st.write("")
+    st.button("← Back to Articles Dashboard", on_click=change_page, args=("main",))
+    st.write("")
+    
+    col1, col2, col3 = st.columns([1, 6, 1])
+    with col2:
+        st.markdown("<h1 class='turquoise-text'>Brain Freeze: Why it happens</h1>", unsafe_allow_html=True)
+        st.image("https://images.unsplash.com/photo-1579954115560-642993130388?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
+        
+        st.write("""
+        Ever take a big, enthusiastic bite of ice cream or chug an icy drink, only to be struck by a sudden, sharp ache in your forehead? That sensation is scientifically known as *sphenopalatine ganglioneuralgia*: more commonly called "brain freeze."
+        
+        While it feels like your brain itself is freezing, the phenomenon is actually a fascinating protective mechanism triggered by your body’s vascular system.
+        
+        ### The Mechanics of Brain Freeze
+        The process happens surprisingly quickly, usually within seconds of something very cold touching the roof of your mouth. Here is the step-by-step of what’s happening:
+        
+        1. **Thermal Shock:** When cold substances touch the hard palate (the roof of your mouth) and the back of the throat, they rapidly cool the blood vessels in those areas.
+        2. **Vasoconstriction and Vasodilation:** To protect your core temperature, the blood vessels in your mouth and throat constrict (shrink) rapidly. Almost immediately after, they dilate (widen) to compensate and increase blood flow.
+        3. **Nerve Misinterpretation:** This sudden, dramatic change in blood vessel size stimulates the **trigeminal nerve**, which is responsible for sensation in your face and mouth. Because this nerve also carries sensory signals from your forehead and scalp, your brain gets "confused." It incorrectly interprets the pain signals coming from the roof of your mouth as originating from your forehead.
+        
+        
+
+[Image of the trigeminal nerve pathway]
+
+        
+        ### Referred Pain
+        This is a classic example of **referred pain**. Your brain receives an intense pain signal from a specific area, but because the trigeminal nerve is a busy highway for sensory input, the brain "maps" the source of the pain to a different location supplied by the same nerve bundle.
+        
+        ### How to Stop It
+        Since brain freeze is essentially a reaction to temperature change, the quickest way to end the pain is to reverse that change:
+        * **Warm the Palate:** Press your tongue firmly against the roof of your mouth. The warmth from your tongue can help restore the blood vessels to their normal state.
+        * **Sip Warm Water:** If you have it nearby, a small sip of lukewarm water can quickly neutralize the temperature in your mouth.
+        * **Cover Your Mouth:** Cupping your hands over your mouth and nose can help create a pocket of warm, humid air, which helps warm the palate more gradually.
+        
+        While uncomfortable, brain freeze is harmless and short-lived. It’s just your body’s way of saying, 'Maybe slow down on the milkshake!'
+        """)
+        st.write("")
+        st.button("Back to Home", on_click=change_page, args=("main",), key="btm4")
