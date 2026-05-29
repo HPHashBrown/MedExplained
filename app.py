@@ -447,7 +447,7 @@ elif st.session_state.current_page == 'article_4':
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
         st.markdown("<h1 class='turquoise-text'>Brain Freeze: Why it happens</h1>", unsafe_allow_html=True)
-        st.image("https://imgur.com/a/Y9EY83A", use_column_width=True)
+        st.image("https://unsplash.com/photos/iridescent-brain-render-on-blue-purple-background-58Z17lnVS4U?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink", use_column_width=True)
         
         st.write("""
         Ever take a big, enthusiastic bite of ice cream or chug an icy drink, only to be struck by a sudden, sharp ache in your forehead? That sensation is scientifically known as *sphenopalatine ganglioneuralgia*: more commonly called "brain freeze."
