@@ -447,7 +447,7 @@ elif st.session_state.current_page == 'article_4':
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
         st.markdown("<h1 class='turquoise-text'>Brain Freeze: Why it happens</h1>", unsafe_allow_html=True)
-        st.image("https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
+        st.image("https://imgur.com/a/Y9EY83A", use_column_width=True)
         
         st.write("""
         Ever take a big, enthusiastic bite of ice cream or chug an icy drink, only to be struck by a sudden, sharp ache in your forehead? That sensation is scientifically known as *sphenopalatine ganglioneuralgia*: more commonly called "brain freeze."
@@ -460,10 +460,7 @@ elif st.session_state.current_page == 'article_4':
         1. **Thermal Shock:** When cold substances touch the hard palate (the roof of your mouth) and the back of the throat, they rapidly cool the blood vessels in those areas.
         2. **Vasoconstriction and Vasodilation:** To protect your core temperature, the blood vessels in your mouth and throat constrict (shrink) rapidly. Almost immediately after, they dilate (widen) to compensate and increase blood flow.
         3. **Nerve Misinterpretation:** This sudden, dramatic change in blood vessel size stimulates the **trigeminal nerve**, which is responsible for sensation in your face and mouth. Because this nerve also carries sensory signals from your forehead and scalp, your brain gets "confused." It incorrectly interprets the pain signals coming from the roof of your mouth as originating from your forehead.
-        
-        
-
-[Image of the trigeminal nerve pathway]
+    
 
         
         ### Referred Pain
