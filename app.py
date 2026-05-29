@@ -219,7 +219,7 @@ if st.session_state.current_page == 'main':
             st.write("Is your phone's radiation actually dangerous, or is it non-ionizing? Here is the scientific truth.")
             st.button("Read full article", key="btn_art3", on_click=change_page, args=("article_3",), use_container_width=True)
 
-        with a_colX: # Replace X with the appropriate column number
+        with a_col4: # Replace X with the appropriate column number
             st.image("https://images.unsplash.com/photo-1579954115560-642993130388?auto=format&fit=crop&q=80&w=600")
             st.markdown("<h4 class='blue-text'>Brain Freeze: Why it happens</h4>", unsafe_allow_html=True)
             st.write("Ever had a sharp pain from ice cream? Discover the science of 'brain freeze' and why it's actually referred pain.")
