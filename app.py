@@ -31,40 +31,45 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for Blue/Turquoise Theme, animations, hover states, and responsive styling
+# Custom CSS for Professional White/Blue Medical Theme
 st.markdown("""
 <style>
-    /* Gradient text effect and accent colors */
+    /* Gradient text effect for Hero Title */
     .hero-title {
         font-size: 3.8rem;
         line-height: 1.15;
         font-weight: 800;
         margin-bottom: 10px;
-        background: linear-gradient(135deg, #38bdf8 0%, #2dd4bf 100%);
+        background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    .blue-text { color: #38bdf8; font-weight: 600; }
-    .turquoise-text { color: #2dd4bf; font-weight: 600; }
+    .blue-text { color: #0284c7; font-weight: 600; }
+    .sky-blue-text { color: #38bdf8; font-weight: 600; }
     
-    /* Interactive Card Zoom and Hover Effects */
+    /* Interactive Card Zoom and Hover Effects (White & Blue) */
     .custom-card {
         padding: 1.5rem;
         border-radius: 12px;
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         transition: all 0.3s ease;
+        color: #1e293b;
     }
     .custom-card:hover {
         transform: translateY(-5px);
-        border-color: #2dd4bf;
-        box-shadow: 0 10px 20px rgba(45, 212, 191, 0.1);
+        border-color: #0284c7;
+        box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1);
+    }
+    .custom-card p {
+        color: #334155;
     }
     
     /* Global Tab Customization */
     .stTabs [data-baseweb="tab-list"] {
         gap: 24px;
-        border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+        border-bottom: 2px solid #e2e8f0;
         padding-bottom: 5px;
     }
     .stTabs [data-baseweb="tab"] {
@@ -73,26 +78,30 @@ st.markdown("""
         font-weight: 600;
         padding: 12px 20px;
         transition: all 0.2s ease;
+        color: #64748b;
     }
     .stTabs [aria-selected="true"] {
-        color: #38bdf8 !important; 
-        border-bottom: 3px solid #2dd4bf !important;
+        color: #0284c7 !important; 
+        border-bottom: 3px solid #0284c7 !important;
     }
 
     /* Style enhancements for alert/success blocks */
     div[data-testid="stExpander"] {
-        border: 1px solid rgba(56, 189, 248, 0.2);
+        border: 1px solid #e2e8f0;
+        background-color: #ffffff;
         border-radius: 10px;
     }
     div[data-testid="stInfo"] {
-        background-color: rgba(56, 189, 248, 0.08);
-        border-left: 5px solid #38bdf8;
+        background-color: #f0f9ff;
+        border-left: 5px solid #0284c7;
         border-radius: 8px;
+        color: #0369a1;
     }
     div[data-testid="stSuccess"] {
-        background-color: rgba(45, 212, 191, 0.08);
-        border-left: 5px solid #2dd4bf;
+        background-color: #f0fdf4;
+        border-left: 5px solid #22c55e;
         border-radius: 8px;
+        color: #15803d;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -121,7 +130,7 @@ if st.session_state.current_page == 'main':
 
         with col1:
             st.markdown("<h1 class='hero-title'>Your Trusted Source for Simplified Medical Knowledge</h1>", unsafe_allow_html=True)
-            st.markdown("<h3 class='turquoise-text'>Empower Your Health Literacy</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 class='sky-blue-text'>Empower Your Health Literacy</h3>", unsafe_allow_html=True)
             st.write(
                 "Welcome to **MedExplained**, a youth-led initiative aiming to bridge the gap between "
                 "complex medical jargon and everyday understanding. We believe health literacy is a "
@@ -137,7 +146,7 @@ if st.session_state.current_page == 'main':
     # --- ABOUT TAB ---
     with tab_about:
         st.write("")
-        st.markdown("<h2 class='turquoise-text'>About MedExplained</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 class='blue-text'>About MedExplained</h2>", unsafe_allow_html=True)
         
         col_abt1, col_abt2 = st.columns([3, 2], gap="large")
         with col_abt1:
@@ -191,10 +200,10 @@ if st.session_state.current_page == 'main':
             </div>
             """, unsafe_allow_html=True)
 
-# --- ARTICLES TAB ---
+    # --- ARTICLES TAB ---
     with tab_articles:
         st.write("")
-        st.markdown("<h2 class='turquoise-text'>Featured Medical Articles</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 class='blue-text'>Featured Medical Articles</h2>", unsafe_allow_html=True)
         st.write("Dive deep into our simplified medical explanations below:")
         st.write("")
         
@@ -238,10 +247,9 @@ if st.session_state.current_page == 'main':
         t_col1, t_col2, t_col3 = st.columns(3)
         with t_col2:
             st.markdown("""
-            <div style='text-align: center; padding: 30px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.05);'>
+            <div style='text-align: center; padding: 30px; border-radius: 16px; border: 1px solid #e2e8f0; background: #ffffff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);'>
             """, unsafe_allow_html=True)
             
-            # Using the requested local headshot file
             try:
                 st.image("headshot.jpg", width=200)
             except Exception:
@@ -249,9 +257,9 @@ if st.session_state.current_page == 'main':
                 st.image('https://ui-avatars.com/api/?name=Harshith+Potluri&background=0284c7&color=fff&size=200')
                 
             st.markdown("""
-                <h3 style='margin: 0;'>Harshith Potluri</h3>
-                <p class='turquoise-text' style='font-size: 1.1rem; margin-top: 5px; font-weight: 700;'>Founder & Leader</p>
-                <p style='font-style: italic; opacity: 0.9;'>
+                <h3 style='margin: 0; color: #1e293b;'>Harshith Potluri</h3>
+                <p class='blue-text' style='font-size: 1.1rem; margin-top: 5px; font-weight: 700;'>Founder & Leader</p>
+                <p style='font-style: italic; color: #475569;'>
                     "Hi! I'm Harshith, the Founder and Leader of the youth-led initiative MedExplained! 
                     We hope to provide medical information across the world and increase health literacy!"
                 </p>
@@ -261,7 +269,7 @@ if st.session_state.current_page == 'main':
     # --- GET INVOLVED TAB ---
     with tab_involved:
         st.write("")
-        st.markdown("<h2 class='turquoise-text'>Join the MedExplained Family</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 class='blue-text'>Join the MedExplained Family</h2>", unsafe_allow_html=True)
         st.write("Become a youth health advocate! Help draft medical articles, design resources, or launch school clubs.")
         st.write("")
 
@@ -321,7 +329,7 @@ elif st.session_state.current_page == 'article_1':
     
     col1, col2, col3 = st.columns([1, 6, 1]) 
     with col2:
-        st.markdown("<h1 class='turquoise-text'>The Importance of Anesthesiology</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 class='blue-text'>The Importance of Anesthesiology</h1>", unsafe_allow_html=True)
         st.image("https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         st.write("")
         st.markdown("""
@@ -366,40 +374,30 @@ elif st.session_state.current_page == 'article_2':
     
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
-        st.markdown("<h1 class='turquoise-text'>Common Medical Hoaxes</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 class='blue-text'>Common Medical Hoaxes</h1>", unsafe_allow_html=True)
         st.write("")
         st.markdown("""
         No, sicknesses aren't caused by the cold, and cracking your knuckles doesn't cause arthritis. Here are some common medical myths that we have busted over the years.
 
-#1. Vaccines can cause autism.
+### 1. Vaccines can cause autism.
 
-Vaccines simply do not give you autism. This myth originated from a fraudulent study study published in 1998. It was falsely concluded by Andrew Wakefield, the leader of the study, who concluded that the MMR (Measles, Mumps, and Rubella) vaccine had a correlation to autism and intestinal inflammation. However, it was later discovered that Andrew Wakefield was paid by lawyers who were suing vaccine manufacturers. Furthermore, Andrew Wakefield was trying to develop his own MMR vaccine to rival the prior vaccine, but ultimately ended up getting caught and having his medical license in the UK revoked. However, the myth still persists today, as many news stations and celebrities in the early 2000's fueled public fear, and the myth simply never died down.
+Vaccines simply do not give you autism. This myth originated from a fraudulent study published in 1998. It was falsely concluded by Andrew Wakefield, the leader of the study, who concluded that the MMR (Measles, Mumps, and Rubella) vaccine had a correlation to autism and intestinal inflammation. However, it was later discovered that Andrew Wakefield was paid by lawyers who were suing vaccine manufacturers. Furthermore, Andrew Wakefield was trying to develop his own MMR vaccine to rival the prior vaccine, but ultimately ended up getting caught and having his medical license in the UK revoked. However, the myth still persists today, as many news stations and celebrities in the early 2000's fueled public fear, and the myth simply never died down.
 
+### 2. Cracking Knuckles can cause Arthritis.
 
+This is simply not true. This myth most likely came from an assumption that the popping noise heard when cracking knuckles causes damage to your cartilage. This myth has been disproven by the brave Dr. Donald Unger, who cracked the knuckles of only one hand for fifty years. After those fifty years, he was proven to have no arthritis, deeming the myth as false. What really happens, is that nitrogen bubbles form, and when you crack your knuckles, they simply pop.
 
-#2. Cracking Knuckles can cause Arthritis.
+### 3. Swallowing Gum causes it to stay in your stomach for seven years.
 
+A myth we all used to believe as a kid, this myth has thankfully been disproven. While the body does not break down the gum, it still regularly goes through the digestive tract in roughly the same amount of time as other foods. The gum will not stick to the stomach walls or intestines, and instead goes through the digestive process regularly, eventually being excreted within a few days. This myth likely started as an old wives tale, scaring children into stop chewing gum.
 
-This is simply not true. This myth most likely came from a assumption that the popping noise heard when cracking knuckles causes damage to your cartilage. This myth has been disproven by the brave Dr. Donald Unger, who cracked the knuckles of only one hand for fifty years. After those fifty years, he was proven to have no arthritis, deeming the myth as false. What really happens, is that nitrogen bubbles form, and when you crack your knuckles, they simply pop.
-
-
-#3. Swallowing Gum causes it to stay in your stomach for seven years.
-
-A myth we all used to believe as a kid, this myth has thankfully been disproven. While the body does not break down the gum, it still regularly goes through the digestive tract in roughly the same amount of time as other foods. The gum will not stick to the stomach walls or intestines, and instead goes through the digestive process regularly, eventually being excreted within a few days. This myth likely started as a old wives tale, scaring children into stop chewing gum.
-
-
-
-#4. Cold weather causes the Common Cold
+### 4. Cold weather causes the Common Cold
 
 Surprisingly, cold weather doesn't actually cause the common cold. The common cold is caused by viruses. This myth originated from the observed pattern that we would get more sick during cold weather, however, there is no causation between cold weather and sickness. However, cold weather causes the ideal temperatures for viruses to grow and spread, as temperatures are cooler and there is less humidity.
 
-
-
-#5. Shaving your hair makes it grow back thicker, darker, and/or faster.
+### 5. Shaving your hair makes it grow back thicker, darker, and/or faster.
 
 Shaving your hair simply does not make it grow back thicker, darker, and/or faster. This myth has been proven false multiple times. This myth comes from over a hundred years ago, with a research paper being published about it, disproving it in 1928. Many people believe this myth due to the illusion of hair feeling blunt after shaving, but it is indeed untrue.
-
-
 
 And that concludes it! Those were five medical myths and hoaxes debunked! We hope you learned something new!
         """)
@@ -413,29 +411,19 @@ elif st.session_state.current_page == 'article_3':
     
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
-        st.markdown("<h1 class='turquoise-text'>Do electronics emit radiation?</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 class='blue-text'>Do electronics emit radiation?</h1>", unsafe_allow_html=True)
         st.image("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         st.write("")
         st.markdown("""
 We've all heard it from our parents before. "Get off of your phone. It causes radiation." But have we ever fact checked our parents? This article aims to figure out the legitimacy of this claim, and spoiler, the results may shock you!
 
-
-
 According to the U.S. Environmental Protection Agency, devices such as our Mobile Phones and TV screens do release radiation, known as radiofrequency radiation.
 
-
-
-HOWEVER...
-
-
+**HOWEVER...**
 
 Radiofrequency radiation is not damaging. It is a form of non-ionizing radiation, meaning that it is not strong enough to damage DNA or cause cancer. This means that devices do not damage you through radiation.
 
-
-
 This proves that while devices emit radiation, the radiation is not harmful enough to cause any significant damage. To put this into comparison, a banana is far more radioactive than electronic devices, and bananas are eaten everyday!
-
-
 
 So now you can finally rest asleep (or stay up scrolling), knowing that your phone does not emit harmful radiation. You can finally prove your parents wrong.
         """)
@@ -449,8 +437,8 @@ elif st.session_state.current_page == 'article_4':
     
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
-        st.markdown("<h1 class='turquoise-text'>Brain Freeze: Why it happens</h1>", unsafe_allow_html=True)
-        st.image("https://unsplash.com/photos/iridescent-brain-render-on-blue-purple-background-58Z17lnVS4U?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink", use_column_width=True)
+        st.markdown("<h1 class='blue-text'>Brain Freeze: Why it happens</h1>", unsafe_allow_html=True)
+        st.image("https://images.unsplash.com/photo-1617791160536-598cf32026fb?auto=format&fit=crop&q=80&w=1200", use_column_width=True)
         
         st.write("""
         Ever take a big, enthusiastic bite of ice cream or chug an icy drink, only to be struck by a sudden, sharp ache in your forehead? That sensation is scientifically known as *sphenopalatine ganglioneuralgia*: more commonly called "brain freeze."
@@ -464,8 +452,6 @@ elif st.session_state.current_page == 'article_4':
         2. **Vasoconstriction and Vasodilation:** To protect your core temperature, the blood vessels in your mouth and throat constrict (shrink) rapidly. Almost immediately after, they dilate (widen) to compensate and increase blood flow.
         3. **Nerve Misinterpretation:** This sudden, dramatic change in blood vessel size stimulates the **trigeminal nerve**, which is responsible for sensation in your face and mouth. Because this nerve also carries sensory signals from your forehead and scalp, your brain gets "confused." It incorrectly interprets the pain signals coming from the roof of your mouth as originating from your forehead.
     
-
-        
         ### Referred Pain
         This is a classic example of **referred pain**. Your brain receives an intense pain signal from a specific area, but because the trigeminal nerve is a busy highway for sensory input, the brain "maps" the source of the pain to a different location supplied by the same nerve bundle.
         
